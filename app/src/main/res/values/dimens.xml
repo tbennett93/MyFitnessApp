@@ -1,0 +1,10 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    //goals
+    <dimen name ="pad_goals_text_amount">10dp</dimen>
+    <dimen name = "goalspage_view_height">40dp</dimen>
+    <dimen name="goals_spacing_between_row_groups">10dp</dimen>
+</resources>

@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">My Fitness App</string>
+    <string name="title_goals">Goals</string>
+    <string name="title_planner">Planner</string>
+    <string name="title_guides">Guides</string>
+    <string name="title_profile">Profile</string>
+
+    //goals
+    //ask
+    <string name="ask_current_weight">Current Weight</string>
+    <string name="ask_current_bf">Current Bodyfat %</string>
+    <string name="ask_target_type">Target Type</string>
+    <string name="ask_switch_bf">Bodyfat %</string>
+    <string name="ask_weight">Weight</string>
+    <string name="ask_start_date">Start Date</string>
+    <string name="ask_target_Date">Target Date</string>
+    //Results
+    <string name="tell_results">Results</string>
+    <string name="tell_maintenance_calories">Maintenance Calories</string>
+    <string name="tell_deficit_required">Target Calorie Deficit</string>
+    <string name="tell_target_daily_calories">Target Daily Calories</string>
+    <string name="tell_target_macros">Proposed Macros</string>
+
+</resources>

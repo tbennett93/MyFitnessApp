@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/currentBFLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/layout_bg"
+    tools:showIn="@layout/fragment_goals">
+
+    <TextView
+        android:id="@+id/askCurrentWeight"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center|left"
+        android:paddingLeft="@dimen/pad_goals_text_amount"
+        android:text="@string/ask_current_weight" />
+
+
+    <TextView
+        android:id="@+id/enterCurrentWeight"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center|right"
+        android:paddingRight="@dimen/pad_goals_text_amount"
+        android:singleLine="true"
+        android:text="replace_with_stored_value" />
+</LinearLayout>
