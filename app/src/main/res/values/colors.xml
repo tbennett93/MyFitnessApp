@@ -3,5 +3,12 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="background">#118ab2</color>
+
+    <color name="background">#2d3142</color>
+    <color name="background_secondary">#ef8354</color>
+
+    <color name="text_primary_colour">#ffffff</color>
+    <color name="text_secondary_colour">#bfc0c0</color>
+    <color name="text_primary">#FFFFFF</color>
+
 </resources>
