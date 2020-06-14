@@ -20,5 +20,6 @@
     <string name="tell_deficit_required">Target Calorie Deficit</string>
     <string name="tell_target_daily_calories">Target Daily Calories</string>
     <string name="tell_target_macros">Proposed Macros</string>
+    <string name="title_details">Details</string>
 
 </resources>

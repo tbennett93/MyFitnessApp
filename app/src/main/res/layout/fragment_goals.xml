@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:fillViewport="false">
 
 
@@ -13,8 +14,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+        android:layout_marginBottom="50dp"
+        android:background="@color/background"
+        android:clipToPadding="false"
         android:orientation="vertical"
+        android:paddingBottom="50dp"
         android:visibility="visible">
+
+
+        <LinearLayout
+            android:id="@+id/details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:showIn="@layout/fragment_goals">
+
+            <TextView
+                android:id="@+id/detailsTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="monospace"
+                android:gravity="center|start"
+                android:paddingLeft="@dimen/pad_goals_text_amount"
+                android:text="@string/title_details"
+                android:textColor="@color/cardview_light_background"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+
+        </LinearLayout>
 
 
         <LinearLayout
@@ -30,9 +58,12 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/ask_current_weight" />
+                android:text="@string/ask_current_weight"
+                android:textAllCaps="false"
+                android:textColor="@color/cardview_light_background" />
 
 
             <TextView
@@ -40,10 +71,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
-                android:text="replace_with_stored_value" />
+                android:text="replace_with_stored_value"
+                android:textColor="@color/cardview_light_background" />
         </LinearLayout>
 
 
@@ -60,9 +93,11 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/ask_current_bf" />
+                android:text="@string/ask_current_bf"
+                android:textColor="@color/cardview_light_background" />
 
 
             <TextView
@@ -70,10 +105,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
-                android:text="replace_with_stored_value" />
+                android:text="replace_with_stored_value"
+                android:textColor="@color/cardview_light_background" />
         </LinearLayout>
 
 
@@ -91,9 +128,11 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="6"
+                android:background="@color/background"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/ask_target_type" />
+                android:text="@string/ask_target_type"
+                android:textColor="@color/cardview_light_background" />
 
             <ToggleButton
                 android:id="@+id/chkState"
@@ -125,25 +164,29 @@
             android:background="@drawable/layout_bg"
             tools:showIn="@layout/fragment_goals">
 
+
             <TextView
                 android:id="@+id/askStartDate"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/ask_start_date" />
-
+                android:text="@string/ask_start_date"
+                android:textColor="@color/cardview_light_background" />
 
             <TextView
                 android:id="@+id/enterStartDate"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
-                android:text="replace_with_stored_value" />
+                android:text="replace_with_stored_value"
+                android:textColor="@color/cardview_light_background" />
 
         </LinearLayout>
 
@@ -160,9 +203,11 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/ask_target_Date" />
+                android:text="@string/ask_target_Date"
+                android:textColor="@color/cardview_light_background" />
 
 
             <TextView
@@ -170,10 +215,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
-                android:text="replace_with_stored_value" />
+                android:text="replace_with_stored_value"
+                android:textColor="@color/cardview_light_background" />
 
         </LinearLayout>
 
@@ -194,12 +241,12 @@
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
                 android:text="@string/tell_results"
+                android:textColor="@color/cardview_light_background"
                 android:textStyle="bold"
                 android:typeface="sans" />
 
 
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -215,9 +262,11 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/tell_maintenance_calories" />
+                android:text="@string/tell_maintenance_calories"
+                android:textColor="@color/cardview_light_background" />
 
 
             <TextView
@@ -225,12 +274,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
-                android:text="replace_with_stored_value" />
+                android:text="replace_with_stored_value"
+                android:textColor="@color/cardview_light_background" />
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -246,9 +296,11 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/tell_deficit_required" />
+                android:text="@string/tell_deficit_required"
+                android:textColor="@color/cardview_light_background" />
 
 
             <TextView
@@ -256,14 +308,15 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
-                android:text="replace_with_stored_value" />
+                android:text="replace_with_stored_value"
+                android:textColor="@color/cardview_light_background" />
 
 
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -279,9 +332,11 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/tell_target_daily_calories" />
+                android:text="@string/tell_target_daily_calories"
+                android:textColor="@color/cardview_light_background" />
 
 
             <TextView
@@ -289,13 +344,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
-                android:text="replace_with_stored_value" />
+                android:text="replace_with_stored_value"
+                android:textColor="@color/cardview_light_background" />
         </LinearLayout>
-
-
 
 
         <LinearLayout
@@ -311,9 +366,11 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/tell_target_macros" />
+                android:text="@string/tell_target_macros"
+                android:textColor="@color/cardview_light_background" />
 
 
             <TextView
@@ -321,17 +378,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/background"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
-                android:text="replace_with_stored_value" />
+                android:text="replace_with_stored_value"
+                android:textColor="@color/cardview_light_background" />
         </LinearLayout>
-
-
-
 
 
     </LinearLayout>
 
 
-</ScrollView>
+</androidx.core.widget.NestedScrollView>
