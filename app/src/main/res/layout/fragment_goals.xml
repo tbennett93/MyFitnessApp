@@ -15,35 +15,7 @@
 
         android:orientation="vertical"
         android:visibility="visible">
-        layout_marginTop
-        <LinearLayout
-            android:id="@+id/currentBFLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
-            android:background="@drawable/layout_bg"
-            tools:showIn="@layout/fragment_goals">
 
-            <TextView
-                android:id="@+id/askCurrentBodyfat"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/goalspage_view_height"
-                android:layout_weight="1"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/ask_current_bf" />
-
-
-            <TextView
-                android:id="@+id/enterCurrentBodyfat"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center|end"
-                android:paddingRight="@dimen/pad_goals_text_amount"
-                android:singleLine="true"
-                android:text="replace_with_stored_value" />
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/currentWeightLayout"
@@ -74,11 +46,43 @@
                 android:text="replace_with_stored_value" />
         </LinearLayout>
 
+
+        <LinearLayout
+            android:id="@+id/currentBFLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+            android:background="@drawable/layout_bg"
+            tools:showIn="@layout/fragment_goals">
+
+            <TextView
+                android:id="@+id/askCurrentBodyfat"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/goalspage_view_height"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:paddingLeft="@dimen/pad_goals_text_amount"
+                android:text="@string/ask_current_bf" />
+
+
+            <TextView
+                android:id="@+id/enterCurrentBodyfat"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|end"
+                android:paddingRight="@dimen/pad_goals_text_amount"
+                android:singleLine="true"
+                android:text="replace_with_stored_value" />
+        </LinearLayout>
+
+
         <LinearLayout
             android:id="@+id/goalType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+            android:layout_weight="1"
             android:background="@drawable/layout_bg"
             tools:showIn="@layout/fragment_goals">
 
@@ -86,36 +90,58 @@
                 android:id="@+id/askGoalType"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/goalspage_view_height"
-                android:layout_weight="3"
+                android:layout_weight="6"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
                 android:text="@string/ask_target_type" />
 
-
-            <Switch
-                android:id="@+id/switchTargetType"
-                android:layout_width="69dp"
-                android:layout_height="match_parent"
+            <ToggleButton
+                android:id="@+id/chkState"
+                android:layout_width="47dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
-                android:paddingRight="@dimen/pad_goals_text_amount"
-                android:singleLine="true"
-                android:text="replace_with_stored_value"
-                android:textOff="@string/ask_switch_bf"
-                android:textOn="@string/ask_weight" />
+                android:background="@drawable/toggle_selector"
+                android:textOff=""
+                android:textOn="" />
+
+            <!--            <Switch-->
+            <!--                android:id="@+id/switchTargetType"-->
+            <!--                android:layout_width="69dp"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:paddingRight="@dimen/pad_goals_text_amount"-->
+            <!--                android:singleLine="true"-->
+            <!--                android:text="replace_with_stored_value"-->
+            <!--                android:textOff="@string/ask_switch_bf"-->
+            <!--                android:textOn="@string/ask_weight" />-->
         </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/enterStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+            android:background="@drawable/layout_bg"
+            tools:showIn="@layout/fragment_goals">
+
+            <TextView
+                android:id="@+id/askStartDate"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/goalspage_view_height"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:paddingLeft="@dimen/pad_goals_text_amount"
+                android:text="@string/ask_current_weight" />
+
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/askStartDate"
-                android:layout_width="wrap_content"
-                android:layout_height="72dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/ask_start_date" />
 
             <TextView
                 android:id="@+id/tellDeficitRequired"
