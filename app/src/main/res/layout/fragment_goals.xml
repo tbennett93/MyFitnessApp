@@ -118,7 +118,7 @@
 
 
         <LinearLayout
-            android:id="@+id/enterStartDate"
+            android:id="@+id/startDate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
@@ -132,121 +132,204 @@
                 android:layout_weight="1"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/ask_current_weight" />
+                android:text="@string/ask_start_date" />
 
+
+            <TextView
+                android:id="@+id/enterStartDate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|end"
+                android:paddingRight="@dimen/pad_goals_text_amount"
+                android:singleLine="true"
+                android:text="replace_with_stored_value" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/targetDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+            android:background="@drawable/layout_bg"
+            tools:showIn="@layout/fragment_goals">
+
+            <TextView
+                android:id="@+id/askTargetDate"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/goalspage_view_height"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:paddingLeft="@dimen/pad_goals_text_amount"
+                android:text="@string/ask_target_Date" />
+
+
+            <TextView
+                android:id="@+id/enterTargetDate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|end"
+                android:paddingRight="@dimen/pad_goals_text_amount"
+                android:singleLine="true"
+                android:text="replace_with_stored_value" />
 
         </LinearLayout>
 
 
         <LinearLayout
+            android:id="@+id/results"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <TextView
-                android:id="@+id/tellDeficitRequired"
-                android:layout_width="wrap_content"
-                android:layout_height="72dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/tell_deficit_required" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            tools:showIn="@layout/fragment_goals">
 
             <TextView
-                android:id="@+id/enterWeightUnit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:textStyle="italic"
-                android:typeface="serif" />
+                android:id="@+id/resultsTitle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="monospace"
+                android:gravity="center|start"
+                android:paddingLeft="@dimen/pad_goals_text_amount"
+                android:text="@string/tell_results"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/maintenanceCalories"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+            android:background="@drawable/layout_bg"
+            tools:showIn="@layout/fragment_goals">
 
             <TextView
-                android:id="@+id/tellMaintCals"
-                android:layout_width="wrap_content"
-                android:layout_height="72dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center_horizontal|center_vertical"
+                android:id="@+id/maintCalsTitle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/goalspage_view_height"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:paddingLeft="@dimen/pad_goals_text_amount"
                 android:text="@string/tell_maintenance_calories" />
 
+
             <TextView
-                android:id="@+id/tell_daily_cals"
-                android:layout_width="wrap_content"
-                android:layout_height="72dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center_horizontal|center_vertical"
+                android:id="@+id/calcMainCals"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|end"
+                android:paddingRight="@dimen/pad_goals_text_amount"
+                android:singleLine="true"
+                android:text="replace_with_stored_value" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/targetDailyDeficit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+            android:background="@drawable/layout_bg"
+            tools:showIn="@layout/fragment_goals">
+
+            <TextView
+                android:id="@+id/deficitRequiredTitle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/goalspage_view_height"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:paddingLeft="@dimen/pad_goals_text_amount"
+                android:text="@string/tell_deficit_required" />
+
+
+            <TextView
+                android:id="@+id/calcCalDeficit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|end"
+                android:paddingRight="@dimen/pad_goals_text_amount"
+                android:singleLine="true"
+                android:text="replace_with_stored_value" />
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/targetDailyCalories"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+            android:background="@drawable/layout_bg"
+            tools:showIn="@layout/fragment_goals">
+
+            <TextView
+                android:id="@+id/dailyCaloriesTitle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/goalspage_view_height"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:paddingLeft="@dimen/pad_goals_text_amount"
                 android:text="@string/tell_target_daily_calories" />
 
-            <TextView
-                android:id="@+id/tellResults"
-                android:layout_width="wrap_content"
-                android:layout_height="72dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/tell_results" />
-
-            <EditText
-                android:id="@+id/enterBodyfat"
-                android:layout_width="80dp"
-                android:layout_height="68dp"
-                android:clickable="true"
-                android:editable="true"
-                android:gravity="right"
-                android:inputType="number|numberDecimal"
-                android:maxLength="3"
-                android:numeric="integer|decimal"
-                android:singleLine="true" />
 
             <TextView
-                android:id="@+id/askTargetMeasurement"
-                android:layout_width="wrap_content"
-                android:layout_height="72dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/ask_target_type" />
+                android:id="@+id/calcDailyCalories"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|end"
+                android:paddingRight="@dimen/pad_goals_text_amount"
+                android:singleLine="true"
+                android:text="replace_with_stored_value" />
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:id="@+id/proposedMacros"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+            android:background="@drawable/layout_bg"
+            tools:showIn="@layout/fragment_goals">
 
             <TextView
-                android:id="@+id/askEndDate"
-                android:layout_width="wrap_content"
-                android:layout_height="72dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/ask_target_Date" />
-
-            <TextView
-                android:id="@+id/tellTargetMacro"
-                android:layout_width="wrap_content"
-                android:layout_height="72dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center_horizontal|center_vertical"
+                android:id="@+id/proposedMacrosTitle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/goalspage_view_height"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:paddingLeft="@dimen/pad_goals_text_amount"
                 android:text="@string/tell_target_macros" />
 
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/barrier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
             <TextView
-                android:id="@+id/enterBodyfatUnit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="%"
-                android:textStyle="italic"
-                android:typeface="serif" />
+                android:id="@+id/calcProposedMacros"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|end"
+                android:paddingRight="@dimen/pad_goals_text_amount"
+                android:singleLine="true"
+                android:text="replace_with_stored_value" />
         </LinearLayout>
+
+
+
+
 
     </LinearLayout>
 

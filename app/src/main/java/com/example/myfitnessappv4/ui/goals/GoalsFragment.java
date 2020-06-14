@@ -30,10 +30,10 @@ public class GoalsFragment extends Fragment {
         appendCurrentWeight = (TextView) root.findViewById(R.id.enterCurrentBodyfat);
 
 
-        final TextView addunit = (TextView) root.findViewById(R.id.enterWeightUnit);
-
-        final String suffix = "lbs"; //Change! this so then it looks at whether lb or kg is setup
-        addunit.setText(suffix);
+//        final TextView addunit = (TextView) root.findViewById(R.id.enterWeightUnit);
+//
+//        final String suffix = "lbs"; //Change! this so then it looks at whether lb or kg is setup
+//        addunit.setText(suffix);
 
         return root;
 
