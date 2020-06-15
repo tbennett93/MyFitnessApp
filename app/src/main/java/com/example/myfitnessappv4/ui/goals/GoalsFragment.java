@@ -2,6 +2,7 @@ package com.example.myfitnessappv4.ui.goals;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -24,48 +26,48 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.myfitnessappv4.MainActivity;
 import com.example.myfitnessappv4.R;
 
+import org.w3c.dom.Text;
+
 public class GoalsFragment extends Fragment {
 
 //    private com.example.myfitnessappv4.ui.goals.GoalsViewModel goalsViewModel;
     private LinearLayout clickableCurrentWeight;
-    private TextView enterCurrentWeight;
-    Point p;
+
+
+    private SharedPreferences mPreferences;
+    private String sharedPrefFile = "com.example.myfitnessappv4.sharedprefsfile";
+
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        goalsViewModel =
-//                ViewModelProviders.of(this).get(com.example.myfitnessappv4.ui.goals.GoalsViewModel.class); //doesn't seem to behave anay differently than = new GoalsViewModel
 
         final View root = inflater.inflate(R.layout.fragment_goals, container, false);
 
+        TextView userCurrentWeight = (TextView) root.findViewById(R.id.enterCurrentWeight);
+
+//        //TODO remove this as we don't want to set it to 180 mandatorily
+        mPreferences = this.getActivity().getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE);
+        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+
+        int test = mPreferences.getInt("CURRENT_WEIGHT_KEY",0);
+        userCurrentWeight.setText(String.valueOf(test));
 
 
 
-        //Enter current weight
-        enterCurrentWeight = (TextView) root.findViewById(R.id.enterCurrentWeight);
+
+        //Set the currentweight row to be clickable and when clicked opens a window to enter an input
         clickableCurrentWeight = (LinearLayout) root.findViewById(R.id.currentWeightLayout);
-
-
-
         clickableCurrentWeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO have this popup with a data entry screen (create new xml layout file, horiontal linear layout)
-
-
 
                 View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_enter_weight, null);
-
-
-//                LinearLayout popupEnterWeightLayout = root.findViewById(R.id.popupEnterWeightLayout);
-
-                enterCurrentWeight.setText(popupView.getWidth() + "and" + popupView.getHeight() );
-
                 final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
                 popupWindow.setAnimationStyle(R.style.Animation_Design_BottomSheetDialog);
                 popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
-
                 dimBehind(popupWindow);
 
 
@@ -84,7 +86,6 @@ public class GoalsFragment extends Fragment {
     }
 
 
-//TODO understand this
     public static void dimBehind(PopupWindow popupWindow) {
         View container = popupWindow.getContentView().getRootView();
         Context context = popupWindow.getContentView().getContext();
@@ -98,3 +99,5 @@ public class GoalsFragment extends Fragment {
 
 }
 
+
+//TODO understand gravity and how to lay views out in a parent screen (i.e. showatLocation above, how do the x and y talk with the gravity)

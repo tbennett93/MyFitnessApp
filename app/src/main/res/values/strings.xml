@@ -28,4 +28,6 @@
     //popup
     <string name="goals_popup_enter_weight">Enter Weight:</string>
 
+    //sharedprefs
+
 </resources>

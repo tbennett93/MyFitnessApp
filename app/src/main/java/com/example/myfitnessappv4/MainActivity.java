@@ -1,6 +1,9 @@
 package com.example.myfitnessappv4;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.myfitnessappv4.R;
@@ -14,9 +17,30 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private SharedPreferences mPreferences;
+    private String sharedPrefFile = "com.example.myfitnessappv4.sharedprefsfile";
+
+//    @Override
+//    protected void onPause(){
+//        super.onPause();
+//
+//         ...
+//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+
+        //TODO remove this as we don't want to set it to 180 mandatorily
+        preferencesEditor.putInt("CURRENT_WEIGHT_KEY", 180);
+        preferencesEditor.apply();
+        preferencesEditor.commit();
+
+
+
 
 
         //setting the content view is enough to display the fragments and navigation bar

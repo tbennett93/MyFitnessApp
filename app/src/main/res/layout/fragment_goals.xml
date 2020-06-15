@@ -78,7 +78,6 @@
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
-                android:text="replace_with_stored_value"
                 android:textColor="@color/text_primary" />
         </LinearLayout>
 
