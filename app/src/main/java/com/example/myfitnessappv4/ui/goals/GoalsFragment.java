@@ -51,8 +51,10 @@ public class GoalsFragment extends Fragment {
         mPreferences = this.getActivity().getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE);
         SharedPreferences.Editor preferencesEditor = mPreferences.edit();
 
-        int test = mPreferences.getInt("CURRENT_WEIGHT_KEY",0);
-        userCurrentWeight.setText(String.valueOf(test));
+        int weight = mPreferences.getInt("CURRENT_WEIGHT_KEY",0);
+        String weightUnit = mPreferences.getString("CURRENT_WEIGHT_UNIT","");
+
+        userCurrentWeight.setText(String.valueOf(weight) + weightUnit);
 
 
 
