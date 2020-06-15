@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@color/background_secondary"
+    android:itemBackground="@color/background_secondary"
 
     <item
         android:id="@+id/navigation_goals"
+        android:background="@color/background_secondary"
         android:icon="@drawable/ic_baseline_timeline_24"
+        android:itemBackground="@color/background_secondary"
         android:title="@string/title_goals"
         app:labelVisibilityMode="labeled" />
-
     <item
         android:id="@+id/navigation_planner"
         android:icon="@drawable/ic_planner"
         android:title="@string/title_planner"
-        app:labelVisibilityMode="labeled"/>
+        android:background="@color/background_secondary"
+        app:labelVisibilityMode="labeled" />
 
     <item
         android:id="@+id/navigation_guides"
         android:icon="@drawable/ic_guides"
         android:title="@string/title_guides"
-        app:labelVisibilityMode="labeled"/>
+        android:background="@color/background_secondary"
+        app:labelVisibilityMode="labeled" />
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/title_profile"
-        app:labelVisibilityMode="labeled"/>
+        android:background="@color/background_secondary"
+        app:labelVisibilityMode="labeled" />
 
 
 </menu>

@@ -6,7 +6,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     android:fillViewport="false">
 
 
@@ -75,12 +74,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
                 android:text="replace_with_stored_value"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto"/>
+                android:textColor="@color/text_primary" />
         </LinearLayout>
 
 
@@ -98,11 +97,11 @@
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
                 android:text="@string/ask_current_bf"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto"/>
+                android:textColor="@color/text_primary" />
 
 
             <TextView
@@ -111,12 +110,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
                 android:text="replace_with_stored_value"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto" />
+                android:textColor="@color/text_primary" />
         </LinearLayout>
 
 
@@ -135,11 +134,11 @@
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="6"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
                 android:text="@string/ask_target_type"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto"/>
+                android:textColor="@color/text_primary" />
 
             <ToggleButton
                 android:id="@+id/chkState"
@@ -169,8 +168,8 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
             android:background="@drawable/layout_bg"
-            tools:showIn="@layout/fragment_goals"
-            android:fontFamily="@font/roboto">
+            android:fontFamily="@font/roboto"
+            tools:showIn="@layout/fragment_goals">
 
 
             <TextView
@@ -179,11 +178,11 @@
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
                 android:text="@string/ask_start_date"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto"/>
+                android:textColor="@color/text_primary" />
 
             <TextView
                 android:id="@+id/enterStartDate"
@@ -191,12 +190,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
                 android:text="replace_with_stored_value"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto"/>
+                android:textColor="@color/text_primary" />
 
         </LinearLayout>
 
@@ -214,11 +213,11 @@
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
                 android:text="@string/ask_target_Date"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto" />
+                android:textColor="@color/text_primary" />
 
 
             <TextView
@@ -227,12 +226,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
                 android:text="replace_with_stored_value"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto"/>
+                android:textColor="@color/text_primary" />
 
         </LinearLayout>
 
@@ -276,11 +275,11 @@
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
                 android:text="@string/tell_maintenance_calories"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto" />
+                android:textColor="@color/text_primary" />
 
 
             <TextView
@@ -289,12 +288,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
                 android:text="replace_with_stored_value"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto" />
+                android:textColor="@color/text_primary" />
         </LinearLayout>
 
 
@@ -312,11 +311,11 @@
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
                 android:text="@string/tell_deficit_required"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto" />
+                android:textColor="@color/text_primary" />
 
 
             <TextView
@@ -325,12 +324,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
                 android:text="replace_with_stored_value"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto"/>
+                android:textColor="@color/text_primary" />
 
 
         </LinearLayout>
@@ -350,11 +349,11 @@
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
                 android:text="@string/tell_target_daily_calories"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto" />
+                android:textColor="@color/text_primary" />
 
 
             <TextView
@@ -363,12 +362,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
                 android:text="replace_with_stored_value"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto" />
+                android:textColor="@color/text_primary" />
         </LinearLayout>
 
 
@@ -386,11 +385,11 @@
                 android:layout_height="@dimen/goalspage_view_height"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|start"
                 android:paddingLeft="@dimen/pad_goals_text_amount"
                 android:text="@string/tell_target_macros"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto"/>
+                android:textColor="@color/text_primary" />
 
 
             <TextView
@@ -399,12 +398,12 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:fontFamily="@font/roboto"
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
                 android:text="replace_with_stored_value"
-                android:textColor="@color/text_primary"
-                android:fontFamily="@font/roboto" />
+                android:textColor="@color/text_primary" />
         </LinearLayout>
 
 

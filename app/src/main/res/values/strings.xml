@@ -14,6 +14,8 @@
     <string name="ask_weight">Weight</string>
     <string name="ask_start_date">Start Date</string>
     <string name="ask_target_Date">Target Date</string>
+
+
     //Results
     <string name="tell_results">Results</string>
     <string name="tell_maintenance_calories">Maintenance Calories</string>
@@ -21,5 +23,9 @@
     <string name="tell_target_daily_calories">Target Daily Calories</string>
     <string name="tell_target_macros">Proposed Macros</string>
     <string name="title_details">Details</string>
+
+
+    //popup
+    <string name="goals_popup_enter_weight">Enter Weight:</string>
 
 </resources>
