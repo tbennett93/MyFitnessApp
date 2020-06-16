@@ -25,15 +25,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:clickable="true"
+            android:editable="true"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/popup_unit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="lbs (autom8 this)" />
+            android:text="lbs" />
 
     </LinearLayout>
 

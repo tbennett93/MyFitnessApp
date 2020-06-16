@@ -7,10 +7,12 @@ import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -28,6 +30,8 @@ import com.example.myfitnessappv4.R;
 
 import org.w3c.dom.Text;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
 public class GoalsFragment extends Fragment {
 
 //    private com.example.myfitnessappv4.ui.goals.GoalsViewModel goalsViewModel;
@@ -36,25 +40,26 @@ public class GoalsFragment extends Fragment {
 
     private SharedPreferences mPreferences;
     private String sharedPrefFile = "com.example.myfitnessappv4.sharedprefsfile";
-
-
-
+    private SharedPreferences.Editor preferencesEditor;
+    private TextView popupUnit;
+    private  EditText popupEnterWeight;
+    private TextView userCurrentWeight;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.fragment_goals, container, false);
 
-        TextView userCurrentWeight = (TextView) root.findViewById(R.id.enterCurrentWeight);
+        userCurrentWeight = (TextView) root.findViewById(R.id.enterCurrentWeight);
 
-//        //TODO remove this as we don't want to set it to 180 mandatorily
+
         mPreferences = this.getActivity().getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE);
-        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+        preferencesEditor = mPreferences.edit();
 
         int weight = mPreferences.getInt("CURRENT_WEIGHT_KEY",0);
         String weightUnit = mPreferences.getString("CURRENT_WEIGHT_UNIT","");
 
-        userCurrentWeight.setText(String.valueOf(weight) + weightUnit);
+        userCurrentWeight.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT_KEY",0)) +  mPreferences.getString("CURRENT_WEIGHT_UNIT",""));
 
 
 
@@ -66,12 +71,73 @@ public class GoalsFragment extends Fragment {
             public void onClick(View v) {
 
                 View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_enter_weight, null);
-                final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                final PopupWindow popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
 
+                //set weight text in popup
+                popupEnterWeight = (EditText) popupView.findViewById(R.id.popupEnterWeight);
+                popupEnterWeight.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT_KEY",0)) );
+
+                //set weight unit
+                popupUnit = (TextView) popupView.findViewById(R.id.popup_unit);
+                popupUnit.setText(String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")));
+
+                //open popup
                 popupWindow.setAnimationStyle(R.style.Animation_Design_BottomSheetDialog);
                 popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
                 dimBehind(popupWindow);
 
+                //Clear text from enter text field if clicked
+                popupEnterWeight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+
+                        popupEnterWeight.setText("");
+
+
+                        popupEnterWeight.setOnKeyListener(new View.OnKeyListener() {
+                            @Override
+                            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+
+
+                                    InputMethodManager manager = (InputMethodManager) getContext()
+                                            .getSystemService(INPUT_METHOD_SERVICE);
+                                    if (manager != null)
+                                        manager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                                    return true; //this is required to stop sending key event to parent
+
+
+                                }
+                                return false;
+                            }
+                        });
+
+
+                    }
+                });
+
+                //okay button to finalise info and close
+                Button buttonOkayEnterWeight = (Button) popupView.findViewById(R.id.buttonOkayEnterWeight);
+
+                buttonOkayEnterWeight.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(popupEnterWeight.getText().toString().matches("")){
+
+                        }else
+                        {
+                            preferencesEditor.putInt("CURRENT_WEIGHT_KEY", Integer.parseInt(popupEnterWeight.getText().toString()));
+                            preferencesEditor.apply();
+                            preferencesEditor.commit();
+                            userCurrentWeight.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT_KEY",0)) +  mPreferences.getString("CURRENT_WEIGHT_UNIT",""));
+                            popupWindow.dismiss();
+                        }
+
+
+                    }
+                });
 
             }
 
@@ -101,5 +167,3 @@ public class GoalsFragment extends Fragment {
 
 }
 
-
-//TODO understand gravity and how to lay views out in a parent screen (i.e. showatLocation above, how do the x and y talk with the gravity)
