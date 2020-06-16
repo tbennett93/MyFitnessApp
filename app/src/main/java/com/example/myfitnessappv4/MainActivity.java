@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         //TODO remove this as we don't want to set it to 180 mandatorily
         preferencesEditor.putInt("CURRENT_WEIGHT_KEY", 180);
         preferencesEditor.putString("CURRENT_WEIGHT_UNIT", "lbs");
+        preferencesEditor.putInt("CURRENT_BODYFAT%",12);
+//        preferencesEditor.putString("START_DATE%",);
         preferencesEditor.apply();
         preferencesEditor.commit();
 

@@ -113,7 +113,6 @@
                 android:gravity="center|end"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
-                android:text="replace_with_stored_value"
                 android:textColor="@color/text_primary" />
         </LinearLayout>
 
@@ -167,6 +166,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
             android:background="@drawable/layout_bg"
+            android:focusableInTouchMode="false"
             android:fontFamily="@font/roboto"
             tools:showIn="@layout/fragment_goals">
 
@@ -183,18 +183,22 @@
                 android:text="@string/ask_start_date"
                 android:textColor="@color/text_primary" />
 
-            <TextView
+            <EditText
                 android:id="@+id/enterStartDate"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/background"
+                android:clickable="true"
+                android:editable="false"
+                android:focusableInTouchMode="false"
                 android:fontFamily="@font/roboto"
                 android:gravity="center|end"
+                android:inputType="date"
                 android:paddingRight="@dimen/pad_goals_text_amount"
                 android:singleLine="true"
-                android:text="replace_with_stored_value"
-                android:textColor="@color/text_primary" />
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
