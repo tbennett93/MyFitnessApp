@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -32,13 +33,16 @@ import com.example.myfitnessappv4.R;
 
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
+import java.util.Set;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -67,8 +71,14 @@ public class GoalsFragment extends Fragment {
     //Start Date
     private EditText displayStartDateField;
     private LinearLayout clickableStartDate;
-    private Calendar myCalendar;
+    private Calendar myCalendarStart;
 
+    //Final Date
+    private EditText displayFinalDateField;
+    private LinearLayout clickableEndDate;
+    private Calendar myCalendarEnd;
+
+    private java.text.DateFormat dateFormat;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -216,36 +226,47 @@ public class GoalsFragment extends Fragment {
         //When the row is clicked, a popup view will appear prompting the user to enter the start date
         displayStartDateField = (EditText) root.findViewById(R.id.enterStartDate);
 
-        //TODO set this to the stored value of  preferencesEditor.putString("START_DATE%",); and set a test one up at initialisation
-//        userCurrentBodyfat.setText(String.valueOf( mPreferences.getInt("CURRENT_BODYFAT",0)) +  "%");
+        dateFormat = android.text.format.DateFormat.getDateFormat(getActivity());
+
+
+        displayStartDateField.setText(dateFormat.format(new Date(mPreferences.getLong("START_DATE", 0))));
 
         //Set the currentBFLayout row to be clickable and when clicked opens a window to enter an input
         clickableStartDate = (LinearLayout) root.findViewById(R.id.startDate);
 
-        myCalendar = Calendar.getInstance();
+        myCalendarStart = Calendar.getInstance();
+
 
 
         displayStartDateField.setOnClickListener(new View.OnClickListener() {
 
+            //when the date row is clicked, open a method dwith a date listener
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(getContext(), date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                // displays a calendar on the context using the mycalendar variables. The date field is the variable assigned when a user picks the date
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), date, myCalendarStart
+                        .get(Calendar.YEAR), myCalendarStart.get(Calendar.MONTH),
+                        myCalendarStart.get(Calendar.DAY_OF_MONTH));
+//                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000); //USer might want a date in the past so dont do this
+                datePickerDialog.show();
+
+
+
             }
 
 
+
+            //the below listener indicates when a user has selected a date using the calendar that was viewable aboee
             DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear,
                                       int dayOfMonth) {
-                    // TODO Auto-generated method stub
-                    myCalendar.set(Calendar.YEAR, year);
-                    myCalendar.set(Calendar.MONTH, monthOfYear);
-                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                    updateLabel();
+                   //sets the values of the calendar object which the update label method then calls to use for updating the text field
+                    myCalendarStart.set(Calendar.YEAR, year);
+                    myCalendarStart.set(Calendar.MONTH, monthOfYear);
+                    myCalendarStart.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    updateLabelWithDate(displayStartDateField, myCalendarStart, "START_DATE");
                 }
 
             };
@@ -253,12 +274,65 @@ public class GoalsFragment extends Fragment {
         });
 
 
-
         //**********************************************************************************
         //**********************************************************************************
 
 
 
+
+        //**********************************************************************************
+        //End Date
+        //**********************************************************************************
+
+
+        //end date View with functionality
+        //When the row is clicked, a popup view will appear prompting the user to enter the start date
+        displayFinalDateField = (EditText) root.findViewById(R.id.enterTargetDate);
+
+        displayFinalDateField.setText(dateFormat.format(new Date(mPreferences.getLong("END_DATE", 0))));
+
+        //Set the currentBFLayout row to be clickable and when clicked opens a window to enter an input
+        clickableEndDate = (LinearLayout) root.findViewById(R.id.targetDate);
+
+        myCalendarEnd = Calendar.getInstance();
+
+        displayFinalDateField.setOnClickListener(new View.OnClickListener() {
+
+            //when the date row is clicked, open a method dwith a date listener
+            @Override
+            public void onClick(View v) {
+                // displays a calendar on the context using the mycalendar variables. The date field is the variable assigned when a user picks the date
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), date, myCalendarEnd
+                        .get(Calendar.YEAR), myCalendarEnd.get(Calendar.MONTH),
+                        myCalendarEnd.get(Calendar.DAY_OF_MONTH));
+
+
+                datePickerDialog.getDatePicker().setMinDate(mPreferences.getLong("START_DATE", 0));
+                datePickerDialog.show();
+            }
+
+            //the below listener indicates when a user has selected a date using the calendar that was viewable aboee
+            DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+                    //sets the values of the calendar object which the update label method then calls to use for updating the text field
+                    myCalendarEnd.set(Calendar.YEAR, year);
+                    myCalendarEnd.set(Calendar.MONTH, monthOfYear);
+                    myCalendarEnd.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+
+                    updateLabelWithDate(displayFinalDateField, myCalendarEnd, "END_DATE");
+                }
+
+            };
+
+        });
+
+
+        //**********************************************************************************
+        //**********************************************************************************
 
 
 
@@ -269,19 +343,27 @@ public class GoalsFragment extends Fragment {
     }
 
 
-    private void updateLabel() {
+    private void updateLabelWithDate(EditText editTextField, Calendar calendar, String preferencesDate) {
 
         //TODO check time formatting and if it can be translated to the users accepted format
+        //TODO check if the calendar view popup can skip years
         String myFormat = "MM/dd/yyyy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
+
+        String myString = df.format(calendar.getTime());
+
+        preferencesEditor.putLong(preferencesDate,  calendar.getTimeInMillis());
+        preferencesEditor.apply();
+        preferencesEditor.commit();
+
+        editTextField.setText(dateFormat.format(new Date(mPreferences.getLong(preferencesDate, 0))));
 
 
-        displayStartDateField.setText(sdf.format(myCalendar.getTime()));
 
-        //figure out how to incorporate the below into the above
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
-        LocalDate dateOfBirth = LocalDate.of(1991, Month.OCTOBER, 13);
-        String formattedDob = dateOfBirth.format(dateFormatter);
+//        Log.d("MYTAG",myString)
+
+
     }
 
 

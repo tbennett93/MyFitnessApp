@@ -15,6 +15,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -37,13 +42,14 @@ public class MainActivity extends AppCompatActivity {
         //TODO remove this as we don't want to set it to 180 mandatorily
         preferencesEditor.putInt("CURRENT_WEIGHT_KEY", 180);
         preferencesEditor.putString("CURRENT_WEIGHT_UNIT", "lbs");
-        preferencesEditor.putInt("CURRENT_BODYFAT%",12);
+        preferencesEditor.putInt("CURRENT_BODYFAT",12);
+
+
+        preferencesEditor.putLong("START_DATE",  new Date(System.currentTimeMillis()).getTime());
+        preferencesEditor.putLong("END_DATE", new Date(System.currentTimeMillis()).getTime()+(5184001*60));
 //        preferencesEditor.putString("START_DATE%",);
         preferencesEditor.apply();
         preferencesEditor.commit();
-
-
-
 
 
         //setting the content view is enough to display the fragments and navigation bar
