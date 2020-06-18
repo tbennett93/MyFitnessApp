@@ -143,20 +143,46 @@
                 android:layout_width="47dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:background="@drawable/toggle_selector"
+                android:background="@color/background"
+                android:foreground="@drawable/ic_target_type_icon_flipper"
+                android:gravity="center_vertical"
                 android:textOff=""
                 android:textOn="" />
 
-            <!--            <Switch-->
-            <!--                android:id="@+id/switchTargetType"-->
-            <!--                android:layout_width="69dp"-->
-            <!--                android:layout_height="match_parent"-->
-            <!--                android:layout_weight="1"-->
-            <!--                android:paddingRight="@dimen/pad_goals_text_amount"-->
-            <!--                android:singleLine="true"-->
-            <!--                android:text="replace_with_stored_value"-->
-            <!--                android:textOff="@string/ask_switch_bf"-->
-            <!--                android:textOn="@string/ask_weight" />-->
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/targetMeasurementLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+            android:background="@drawable/layout_bg"
+            tools:showIn="@layout/fragment_goals">
+
+            <TextView
+                android:id="@+id/askTargetMeasurement"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/goalspage_view_height"
+                android:layout_weight="1"
+                android:background="@color/background"
+                android:fontFamily="@font/roboto"
+                android:gravity="center|start"
+                android:paddingLeft="@dimen/pad_goals_text_amount"
+                android:textColor="@color/text_primary" />
+
+
+            <TextView
+                android:id="@+id/enterTargetAmount"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/background"
+                android:fontFamily="@font/roboto"
+                android:gravity="center|end"
+                android:paddingRight="@dimen/pad_goals_text_amount"
+                android:singleLine="true"
+                android:textColor="@color/text_primary" />
         </LinearLayout>
 
 
@@ -410,6 +436,45 @@
                 android:text="replace_with_stored_value"
                 android:textColor="@color/text_primary" />
         </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/tellEndBFLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+            android:background="@drawable/layout_bg"
+            tools:showIn="@layout/fragment_goals">
+
+            <TextView
+                android:id="@+id/tellEndBFTitle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/goalspage_view_height"
+                android:layout_weight="1"
+                android:background="@color/background"
+                android:fontFamily="@font/roboto"
+                android:gravity="center|start"
+                android:paddingLeft="@dimen/pad_goals_text_amount"
+                android:text="USe this to display the weight at the end goal if % is used in calc"
+                android:textAllCaps="false"
+                android:textColor="@color/text_primary"
+                android:typeface="normal" />
+
+
+            <TextView
+                android:id="@+id/tellEndBFValue"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/background"
+                android:fontFamily="@font/roboto"
+                android:gravity="center|end"
+                android:paddingRight="@dimen/pad_goals_text_amount"
+                android:singleLine="true"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
 
 
     </LinearLayout>

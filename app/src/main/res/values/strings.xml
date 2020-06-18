@@ -7,14 +7,18 @@
 
     //goals
     //ask
-    <string name="ask_current_weight">Current Weight</string>
-    <string name="ask_current_bf">Current Bodyfat %</string>
-    <string name="ask_target_type">Target Type</string>
-    <string name="ask_switch_bf">Bodyfat %</string>
-    <string name="ask_weight">Weight</string>
+    <string name="ask_current_weight">Initial Weight</string>
+    <string name="ask_current_bf">Initial Body Fat %</string>
+    <string name="ask_target_type">Goal Type</string>
+    <string name="ask_switch_bf">Goal Body Fat %</string>
+    <string name="ask_weight">Goal Weight</string>
     <string name="ask_start_date">Start Date</string>
     <string name="ask_target_Date">Target Date</string>
-
+    <string name="unit_type_lbs">lbs</string>
+    <string name="unit_type_kg">kg</string>
+    <string name="unit_type_percentage">%</string>
+    <string name="ask_popup_goal_weight">Enter Goal Weight:</string>
+    <string name="ask_popup_goal_bf">Enter Goal Body Fat %:</string>
 
     //Results
     <string name="tell_results">Results</string>
@@ -25,9 +29,8 @@
     <string name="title_details">Details</string>
 
 
+
     //popup
     <string name="goals_popup_enter_weight">Enter Weight:</string>
-
-    //sharedprefs
 
 </resources>

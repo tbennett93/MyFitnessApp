@@ -1,13 +1,9 @@
 package com.example.myfitnessappv4.ui.goals;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,28 +17,18 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import androidx.lifecycle.ViewModelProviders;
-
-import com.example.myfitnessappv4.MainActivity;
 import com.example.myfitnessappv4.R;
 
-import org.w3c.dom.Text;
-
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Set;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -60,12 +46,24 @@ public class GoalsFragment extends Fragment {
     private EditText popupEnterWeight;
     private TextView userCurrentWeight;
     private LinearLayout clickableCurrentWeight;
-    private PopupWindow popupWindow;
+    private PopupWindow popupWindowWeight;
 
     //Current BF
     private EditText popupEnterBodyfat;
     private TextView userCurrentBodyfat;
     private LinearLayout clickableCurrentBodyfat;
+
+    //Target
+    private TextView popupEnterGoalValue;
+    private TextView popupGoalValueUnit;
+    private TextView userAskGoalType;
+    private EditText enterGoalValue;
+    private ToggleButton targetTypeSelector;
+    private String sTargetType;
+    private LinearLayout clickableMeasurementLayout;
+    private PopupWindow popupWindowGoals;
+    private TextView enterTargetAmount;
+    private TextView popupAskGoalType;
 
 
     //Start Date
@@ -110,29 +108,27 @@ public class GoalsFragment extends Fragment {
         userCurrentWeight.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT_KEY",0)) +  mPreferences.getString("CURRENT_WEIGHT_UNIT",""));
 
 
-
-
         //Set the currentweight row to be clickable and when clicked opens a window to enter an input
         clickableCurrentWeight = (LinearLayout) root.findViewById(R.id.currentWeightLayout);
         clickableCurrentWeight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_enter_weight, null);
-                popupWindow = new PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+                View popupViewWeight = LayoutInflater.from(getActivity()).inflate(R.layout.popup_enter_weight, null);
+                popupWindowWeight = new PopupWindow(popupViewWeight, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
 
                 //set weight text in popup
-                popupEnterWeight = (EditText) popupView.findViewById(R.id.popupEnterWeight);
+                popupEnterWeight = (EditText) popupViewWeight.findViewById(R.id.popupEnterWeight);
                 popupEnterWeight.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT_KEY",0)) );
 
                 //set weight unit
-                popupUnit = (TextView) popupView.findViewById(R.id.popup_unit);
+                popupUnit = (TextView) popupViewWeight.findViewById(R.id.popup_unit);
                 popupUnit.setText(String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")));
 
                 //open popup
-                popupWindow.setAnimationStyle(R.style.Animation_Design_BottomSheetDialog);
-                popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
-                dimBehind(popupWindow);
+                popupWindowWeight.setAnimationStyle(R.style.Animation_Design_BottomSheetDialog);
+                popupWindowWeight.showAtLocation(popupViewWeight, Gravity.CENTER, 0, 0);
+                dimBehind(popupWindowWeight);
 
                 //Clear text from enter text field if clicked
                 popupEnterWeight.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -166,7 +162,7 @@ public class GoalsFragment extends Fragment {
                 });
 
                 //okay button to finalise info and close
-                Button buttonOkayEnterWeight = (Button) popupView.findViewById(R.id.buttonOkayEnterWeight);
+                Button buttonOkayEnterWeight = (Button) popupViewWeight.findViewById(R.id.buttonOkayEnterWeight);
 
                 buttonOkayEnterWeight.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -178,9 +174,8 @@ public class GoalsFragment extends Fragment {
                         {
                             preferencesEditor.putInt("CURRENT_WEIGHT_KEY", Integer.parseInt(popupEnterWeight.getText().toString()));
                             preferencesEditor.apply();
-                            preferencesEditor.commit();
                             userCurrentWeight.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT_KEY",0)) +  mPreferences.getString("CURRENT_WEIGHT_UNIT",""));
-                            popupWindow.dismiss();
+                            popupWindowWeight.dismiss();
                         }
 
 
@@ -193,21 +188,42 @@ public class GoalsFragment extends Fragment {
         });
 
 
+
+
+
         //**********************************************************************************
-        //Current Bodyfat
         //**********************************************************************************
 
-        //Current bodyfat View with functionality
-        //When the row is clicked, a popup view will appear prompting the user to enter their bodyfat.
-        //When entered, this closes the popup, updates the saved data and forces a refresh in the main layout
-        userCurrentBodyfat = (TextView) root.findViewById(R.id.enterCurrentBodyfat);
-
-        //set bodyfat text to that held in the preferences
-        userCurrentBodyfat.setText(String.valueOf( mPreferences.getInt("CURRENT_BODYFAT",0)) +  "%");
 
 
-        //Set the currentBFLayout row to be clickable and when clicked opens a window to enter an input
-        clickableCurrentBodyfat = (LinearLayout) root.findViewById(R.id.currentBFLayout);
+
+
+
+        //**********************************************************************************
+        //Switch Unit Button
+        //**********************************************************************************
+
+        //Button toggle to change target type change units
+        targetTypeSelector = (ToggleButton) root.findViewById(R.id.chkState);
+        userAskGoalType = (TextView) root.findViewById(R.id.askTargetMeasurement);
+
+
+        //TODO change this set text to use strings.xml rather than a straight value. Also change it to Goal Weight and Goal Body fat %
+        sTargetType = ((targetTypeSelector.isChecked() ) ? getResources().getString(R.string.ask_weight) :  getResources().getString(R.string.ask_switch_bf)  );
+
+        userAskGoalType.setText(sTargetType);
+
+        targetTypeSelector.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sTargetType = ((targetTypeSelector.isChecked() ) ? getResources().getString(R.string.ask_weight) :  getResources().getString(R.string.ask_switch_bf)  );
+                userAskGoalType.setText(sTargetType);
+                enterTargetAmount = (TextView) root.findViewById(R.id.enterTargetAmount);
+                enterTargetAmount.setText("");
+            }
+        });
+
+
 
 
 
@@ -274,8 +290,8 @@ public class GoalsFragment extends Fragment {
         });
 
 
-        //**********************************************************************************
-        //**********************************************************************************
+
+
 
 
 
@@ -307,7 +323,7 @@ public class GoalsFragment extends Fragment {
                         myCalendarEnd.get(Calendar.DAY_OF_MONTH));
 
 
-                datePickerDialog.getDatePicker().setMinDate(mPreferences.getLong("START_DATE", 0));
+                datePickerDialog.getDatePicker().setMinDate(mPreferences.getLong("START_DATE", 0)+86400001);
                 datePickerDialog.show();
             }
 
@@ -322,13 +338,117 @@ public class GoalsFragment extends Fragment {
                     myCalendarEnd.set(Calendar.MONTH, monthOfYear);
                     myCalendarEnd.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-
                     updateLabelWithDate(displayFinalDateField, myCalendarEnd, "END_DATE");
+
+
                 }
 
             };
 
         });
+
+
+        //**********************************************************************************
+        //**********************************************************************************
+
+
+
+
+
+
+        //**********************************************************************************
+        //Target Value and popup
+        //**********************************************************************************
+
+        enterTargetAmount = (TextView) root.findViewById(R.id.enterTargetAmount);
+        enterTargetAmount.setText(String.valueOf( mPreferences.getInt("USER_GOAL_VAL",0)) +  ((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  ));
+
+
+        //Set the currentweight row to be clickable and when clicked opens a window to enter an input
+        clickableMeasurementLayout = (LinearLayout) root.findViewById(R.id.targetMeasurementLayout);
+        clickableMeasurementLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                View popupViewGoals = LayoutInflater.from(getActivity()).inflate(R.layout.popup_enter_goal_value, null);
+                popupWindowGoals = new PopupWindow(popupViewGoals, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+
+                popupAskGoalType = (TextView) popupViewGoals.findViewById(R.id.popupAskGoalType);
+                popupAskGoalType.setText((targetTypeSelector.isChecked() ) ? getResources().getString(R.string.ask_popup_goal_weight) :  getResources().getString(R.string.ask_popup_goal_bf)  );
+
+                //set weight text in popup
+                popupEnterGoalValue = (EditText) popupViewGoals.findViewById(R.id.popupEnterGoalValue);
+                popupEnterGoalValue.setText(String.valueOf( mPreferences.getInt("USER_GOAL_VAL",0)) );
+
+                popupGoalValueUnit = (TextView) popupViewGoals.findViewById(R.id.popupGoalValueUnit);
+                popupGoalValueUnit.setText((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  );
+
+
+
+                //open popup
+                popupWindowGoals.setAnimationStyle(R.style.Animation_Design_BottomSheetDialog);
+                popupWindowGoals.showAtLocation(popupViewGoals, Gravity.CENTER, 0, 0);
+                dimBehind(popupWindowGoals);
+
+                //Clear text from enter text field if clicked
+                popupEnterGoalValue.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+
+                        popupEnterGoalValue.setText("");
+
+
+                        popupEnterGoalValue.setOnKeyListener(new View.OnKeyListener() {
+                            @Override
+                            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+
+
+                                    InputMethodManager manager = (InputMethodManager) getContext()
+                                            .getSystemService(INPUT_METHOD_SERVICE);
+                                    if (manager != null)
+                                        manager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                                    return true; //this is required to stop sending key event to parent
+
+
+                                }
+                                return false;
+                            }
+                        });
+
+
+                    }
+                });
+
+                //okay button to finalise info and close
+                Button buttonOkayEnterValueGoals = (Button) popupViewGoals.findViewById(R.id.buttonGoalsOkayEnterWeight);
+
+                buttonOkayEnterValueGoals.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(popupEnterGoalValue.getText().toString().matches("")){
+
+                        }else
+                        {
+                            preferencesEditor.putInt("USER_GOAL_VAL", Integer.parseInt(popupEnterGoalValue.getText().toString()));
+                            preferencesEditor.apply();
+                            enterTargetAmount.setText(String.valueOf( mPreferences.getInt("USER_GOAL_VAL",0)) +  ((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  ));
+
+
+                            popupWindowGoals.dismiss();
+                        }
+
+
+                    }
+                });
+
+            }
+
+
+        });
+
 
 
         //**********************************************************************************
@@ -355,7 +475,6 @@ public class GoalsFragment extends Fragment {
 
         preferencesEditor.putLong(preferencesDate,  calendar.getTimeInMillis());
         preferencesEditor.apply();
-        preferencesEditor.commit();
 
         editTextField.setText(dateFormat.format(new Date(mPreferences.getLong(preferencesDate, 0))));
 

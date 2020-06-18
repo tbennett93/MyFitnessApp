@@ -20,8 +20,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity {
+    //TODO make mpreferences public or restricted to all classes in this scope
 
     private SharedPreferences mPreferences;
     private String sharedPrefFile = "com.example.myfitnessappv4.sharedprefsfile";
@@ -43,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
         preferencesEditor.putInt("CURRENT_WEIGHT_KEY", 180);
         preferencesEditor.putString("CURRENT_WEIGHT_UNIT", "lbs");
         preferencesEditor.putInt("CURRENT_BODYFAT",12);
+        preferencesEditor.putInt("USER_GOAL_VAL",10);
 
 
         preferencesEditor.putLong("START_DATE",  new Date(System.currentTimeMillis()).getTime());
         preferencesEditor.putLong("END_DATE", new Date(System.currentTimeMillis()).getTime()+(5184001*60));
 //        preferencesEditor.putString("START_DATE%",);
         preferencesEditor.apply();
-        preferencesEditor.commit();
 
 
         //setting the content view is enough to display the fragments and navigation bar
@@ -85,3 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+
+//TODO make a decision on whether or not a user can enter weight and bf in the goals tab.
+//Separate all instances of Bodyfat to Body Fat
+//TODO limit entered bodyfat% to between 1-100
