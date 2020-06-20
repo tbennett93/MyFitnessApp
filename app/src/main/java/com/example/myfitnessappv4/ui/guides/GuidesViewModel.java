@@ -17,3 +17,7 @@ public class GuidesViewModel extends ViewModel {
         return mText;
     }
 }
+//This could be a linear layout of titles for articles and the articles when clicked could open in a nice fragment layout
+//Maintenance calories
+//3500 calories
+//How to calc body fat

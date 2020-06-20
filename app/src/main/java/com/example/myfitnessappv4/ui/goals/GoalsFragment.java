@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.myfitnessappv4.MainActivity;
 import com.example.myfitnessappv4.R;
 
 import java.text.DateFormat;
@@ -36,7 +37,7 @@ public class GoalsFragment extends Fragment {
 
 
     //Universal
-    private SharedPreferences mPreferences;
+    public static SharedPreferences mPreferences;
     private String sharedPrefFile = "com.example.myfitnessappv4.sharedprefsfile";
     private SharedPreferences.Editor preferencesEditor;
     private View root;
@@ -80,6 +81,8 @@ public class GoalsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        mPreferences = MainActivity.mPreferences;
 
         //Hides the title of the app
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
@@ -219,12 +222,10 @@ public class GoalsFragment extends Fragment {
                 sTargetType = ((targetTypeSelector.isChecked() ) ? getResources().getString(R.string.ask_weight) :  getResources().getString(R.string.ask_switch_bf)  );
                 userAskGoalType.setText(sTargetType);
                 enterTargetAmount = (TextView) root.findViewById(R.id.enterTargetAmount);
-                enterTargetAmount.setText("");
+                //Sets the unit of the target amount
+                enterTargetAmount.setText( ((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  ));
             }
         });
-
-
-
 
 
 

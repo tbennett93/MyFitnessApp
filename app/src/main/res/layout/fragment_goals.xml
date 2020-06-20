@@ -1,483 +1,493 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="false">
-
-
-    <LinearLayout
+    <!--wrap  the whole layout in a relative layout so then it resizes on different sized phones-->
+    <RelativeLayout android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_marginBottom="50dp"
-        android:background="@color/background"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        android:paddingBottom="50dp"
-        android:visibility="visible">
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-        <LinearLayout
-            android:id="@+id/details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:showIn="@layout/fragment_goals">
 
-            <TextView
-                android:id="@+id/detailsTitle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/title_details"
-                android:textColor="@color/text_primary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="normal" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/currentWeightLayout"
+        <!--Wrap everything in a nested scroll view to allow scrolling-->
+        <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
-            android:background="@drawable/layout_bg"
-            tools:showIn="@layout/fragment_goals">
-
-            <TextView
-                android:id="@+id/askCurrentWeight"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/goalspage_view_height"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/ask_current_weight"
-                android:textAllCaps="false"
-                android:textColor="@color/text_primary"
-                android:typeface="normal" />
-
-
-            <TextView
-                android:id="@+id/enterCurrentWeight"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|end"
-                android:paddingRight="@dimen/pad_goals_text_amount"
-                android:singleLine="true"
-                android:textColor="@color/text_primary" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/currentBFLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
-            android:background="@drawable/layout_bg"
-            tools:showIn="@layout/fragment_goals">
-
-            <TextView
-                android:id="@+id/askCurrentBodyfat"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/goalspage_view_height"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/ask_current_bf"
-                android:textColor="@color/text_primary" />
-
-
-            <TextView
-                android:id="@+id/enterCurrentBodyfat"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|end"
-                android:paddingRight="@dimen/pad_goals_text_amount"
-                android:singleLine="true"
-                android:textColor="@color/text_primary" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/goalType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
-            android:layout_weight="1"
-            android:background="@drawable/layout_bg"
-            tools:showIn="@layout/fragment_goals">
-
-            <TextView
-                android:id="@+id/askGoalType"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/goalspage_view_height"
-                android:layout_weight="6"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/ask_target_type"
-                android:textColor="@color/text_primary" />
-
-            <ToggleButton
-                android:id="@+id/chkState"
-                android:layout_width="47dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:foreground="@drawable/ic_target_type_icon_flipper"
-                android:gravity="center_vertical"
-                android:textOff=""
-                android:textOn="" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/targetMeasurementLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
-            android:background="@drawable/layout_bg"
-            tools:showIn="@layout/fragment_goals">
-
-            <TextView
-                android:id="@+id/askTargetMeasurement"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/goalspage_view_height"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:textColor="@color/text_primary" />
-
-
-            <TextView
-                android:id="@+id/enterTargetAmount"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|end"
-                android:paddingRight="@dimen/pad_goals_text_amount"
-                android:singleLine="true"
-                android:textColor="@color/text_primary" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/startDate"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
-            android:background="@drawable/layout_bg"
-            android:focusableInTouchMode="false"
-            android:fontFamily="@font/roboto"
-            tools:showIn="@layout/fragment_goals">
-
-
-            <TextView
-                android:id="@+id/askStartDate"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/goalspage_view_height"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/ask_start_date"
-                android:textColor="@color/text_primary" />
-
-            <EditText
-                android:id="@+id/enterStartDate"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:clickable="true"
-                android:editable="false"
-                android:focusableInTouchMode="false"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|end"
-                android:paddingRight="@dimen/pad_goals_text_amount"
-                android:singleLine="true"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/targetDate"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
-            android:background="@drawable/layout_bg"
-            tools:showIn="@layout/fragment_goals">
-
-            <TextView
-                android:id="@+id/askTargetDate"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/goalspage_view_height"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/ask_target_Date"
-                android:textColor="@color/text_primary" />
-
-
-            <EditText
-                android:id="@+id/enterTargetDate"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:clickable="true"
-                android:editable="false"
-                android:focusableInTouchMode="false"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|end"
-                android:paddingRight="@dimen/pad_goals_text_amount"
-                android:singleLine="true"
-                android:textColor="@color/text_primary"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/results"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            tools:showIn="@layout/fragment_goals">
-
-            <TextView
-                android:id="@+id/resultsTitle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/tell_results"
-                android:textColor="@color/text_primary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/maintenanceCalories"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
-            android:background="@drawable/layout_bg"
-            tools:showIn="@layout/fragment_goals">
-
-            <TextView
-                android:id="@+id/maintCalsTitle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/goalspage_view_height"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/tell_maintenance_calories"
-                android:textColor="@color/text_primary" />
-
-
-            <TextView
-                android:id="@+id/calcMainCals"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|end"
-                android:paddingRight="@dimen/pad_goals_text_amount"
-                android:singleLine="true"
-                android:text="replace_with_stored_value"
-                android:textColor="@color/text_primary" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/targetDailyDeficit"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
-            android:background="@drawable/layout_bg"
-            tools:showIn="@layout/fragment_goals">
-
-            <TextView
-                android:id="@+id/deficitRequiredTitle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/goalspage_view_height"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/tell_deficit_required"
-                android:textColor="@color/text_primary" />
-
-
-            <TextView
-                android:id="@+id/calcCalDeficit"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|end"
-                android:paddingRight="@dimen/pad_goals_text_amount"
-                android:singleLine="true"
-                android:text="replace_with_stored_value"
-                android:textColor="@color/text_primary" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/targetDailyCalories"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
-            android:background="@drawable/layout_bg"
-            tools:showIn="@layout/fragment_goals">
-
-            <TextView
-                android:id="@+id/dailyCaloriesTitle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/goalspage_view_height"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/tell_target_daily_calories"
-                android:textColor="@color/text_primary" />
-
-
-            <TextView
-                android:id="@+id/calcDailyCalories"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|end"
-                android:paddingRight="@dimen/pad_goals_text_amount"
-                android:singleLine="true"
-                android:text="replace_with_stored_value"
-                android:textColor="@color/text_primary" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/proposedMacros"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
-            android:background="@drawable/layout_bg"
-            tools:showIn="@layout/fragment_goals">
-
-            <TextView
-                android:id="@+id/proposedMacrosTitle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/goalspage_view_height"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="@string/tell_target_macros"
-                android:textColor="@color/text_primary" />
-
-
-            <TextView
-                android:id="@+id/calcProposedMacros"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|end"
-                android:paddingRight="@dimen/pad_goals_text_amount"
-                android:singleLine="true"
-                android:text="replace_with_stored_value"
-                android:textColor="@color/text_primary" />
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:id="@+id/tellEndBFLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
-            android:background="@drawable/layout_bg"
-            tools:showIn="@layout/fragment_goals">
-
-            <TextView
-                android:id="@+id/tellEndBFTitle"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/goalspage_view_height"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/pad_goals_text_amount"
-                android:text="USe this to display the weight at the end goal if % is used in calc"
-                android:textAllCaps="false"
-                android:textColor="@color/text_primary"
-                android:typeface="normal" />
-
-
-            <TextView
-                android:id="@+id/tellEndBFValue"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/background"
-                android:fontFamily="@font/roboto"
-                android:gravity="center|end"
-                android:paddingRight="@dimen/pad_goals_text_amount"
-                android:singleLine="true"
-                android:textColor="@color/text_primary" />
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-
-
-</androidx.core.widget.NestedScrollView>
+            android:fillViewport="false">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginBottom="50dp"
+                    android:background="@color/background"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:paddingBottom="50dp"
+                    android:visibility="visible">
+
+
+                    <LinearLayout
+                        android:id="@+id/details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:showIn="@layout/fragment_goals">
+
+                        <TextView
+                            android:id="@+id/detailsTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|start"
+                            android:paddingLeft="@dimen/pad_goals_text_amount"
+                            android:text="@string/title_details"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:typeface="normal" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/currentWeightLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+                        android:background="@drawable/layout_bg"
+                        tools:showIn="@layout/fragment_goals">
+
+                        <TextView
+                            android:id="@+id/askCurrentWeight"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/goalspage_view_height"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|start"
+                            android:paddingLeft="@dimen/pad_goals_text_amount"
+                            android:text="@string/ask_current_weight"
+                            android:textAllCaps="false"
+                            android:textColor="@color/text_primary"
+                            android:typeface="normal" />
+
+
+                        <TextView
+                            android:id="@+id/enterCurrentWeight"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|end"
+                            android:paddingRight="@dimen/pad_goals_text_amount"
+                            android:singleLine="true"
+                            android:textColor="@color/text_primary" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/currentBFLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+                        android:background="@drawable/layout_bg"
+                        tools:showIn="@layout/fragment_goals">
+
+                        <TextView
+                            android:id="@+id/askCurrentBodyfat"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/goalspage_view_height"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|start"
+                            android:paddingLeft="@dimen/pad_goals_text_amount"
+                            android:text="@string/ask_current_bf"
+                            android:textColor="@color/text_primary" />
+
+
+                        <TextView
+                            android:id="@+id/enterCurrentBodyfat"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|end"
+                            android:paddingRight="@dimen/pad_goals_text_amount"
+                            android:singleLine="true"
+                            android:textColor="@color/text_primary" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/goalType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+                        android:layout_weight="1"
+                        android:background="@drawable/layout_bg"
+                        tools:showIn="@layout/fragment_goals">
+
+                        <TextView
+                            android:id="@+id/askGoalType"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/goalspage_view_height"
+                            android:layout_weight="6"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|start"
+                            android:paddingLeft="@dimen/pad_goals_text_amount"
+                            android:text="@string/ask_target_type"
+                            android:textColor="@color/text_primary" />
+
+                        <ToggleButton
+                            android:id="@+id/chkState"
+                            android:layout_width="47dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:foreground="@drawable/ic_target_type_icon_flipper"
+                            android:gravity="center_vertical"
+                            android:textOff=""
+                            android:textOn="" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/targetMeasurementLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+                        android:background="@drawable/layout_bg"
+                        tools:showIn="@layout/fragment_goals">
+
+                        <TextView
+                            android:id="@+id/askTargetMeasurement"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/goalspage_view_height"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|start"
+                            android:paddingLeft="@dimen/pad_goals_text_amount"
+                            android:textColor="@color/text_primary" />
+
+
+                        <TextView
+                            android:id="@+id/enterTargetAmount"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|end"
+                            android:paddingRight="@dimen/pad_goals_text_amount"
+                            android:singleLine="true"
+                            android:textColor="@color/text_primary" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/startDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+                        android:background="@drawable/layout_bg"
+                        android:focusableInTouchMode="false"
+                        android:fontFamily="@font/roboto"
+                        tools:showIn="@layout/fragment_goals">
+
+
+                        <TextView
+                            android:id="@+id/askStartDate"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/goalspage_view_height"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|start"
+                            android:paddingLeft="@dimen/pad_goals_text_amount"
+                            android:text="@string/ask_start_date"
+                            android:textColor="@color/text_primary" />
+
+                        <EditText
+                            android:id="@+id/enterStartDate"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:clickable="true"
+                            android:editable="false"
+                            android:focusableInTouchMode="false"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|end"
+                            android:paddingRight="@dimen/pad_goals_text_amount"
+                            android:singleLine="true"
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/targetDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+                        android:background="@drawable/layout_bg"
+                        tools:showIn="@layout/fragment_goals">
+
+                        <TextView
+                            android:id="@+id/askTargetDate"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/goalspage_view_height"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|start"
+                            android:paddingLeft="@dimen/pad_goals_text_amount"
+                            android:text="@string/ask_target_Date"
+                            android:textColor="@color/text_primary" />
+
+
+                        <EditText
+                            android:id="@+id/enterTargetDate"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:clickable="true"
+                            android:editable="false"
+                            android:focusableInTouchMode="false"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|end"
+                            android:paddingRight="@dimen/pad_goals_text_amount"
+                            android:singleLine="true"
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/results"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        tools:showIn="@layout/fragment_goals">
+
+                        <TextView
+                            android:id="@+id/resultsTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|start"
+                            android:paddingLeft="@dimen/pad_goals_text_amount"
+                            android:text="@string/tell_results"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:typeface="sans" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/maintenanceCalories"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+                        android:background="@drawable/layout_bg"
+                        tools:showIn="@layout/fragment_goals">
+
+                        <TextView
+                            android:id="@+id/maintCalsTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/goalspage_view_height"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|start"
+                            android:paddingLeft="@dimen/pad_goals_text_amount"
+                            android:text="@string/tell_maintenance_calories"
+                            android:textColor="@color/text_primary" />
+
+
+                        <TextView
+                            android:id="@+id/calcMainCals"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|end"
+                            android:paddingRight="@dimen/pad_goals_text_amount"
+                            android:singleLine="true"
+                            android:text="replace_with_stored_value"
+                            android:textColor="@color/text_primary" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/targetDailyDeficit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+                        android:background="@drawable/layout_bg"
+                        tools:showIn="@layout/fragment_goals">
+
+                        <TextView
+                            android:id="@+id/deficitRequiredTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/goalspage_view_height"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|start"
+                            android:paddingLeft="@dimen/pad_goals_text_amount"
+                            android:text="@string/tell_deficit_required"
+                            android:textColor="@color/text_primary" />
+
+
+                        <TextView
+                            android:id="@+id/calcCalDeficit"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|end"
+                            android:paddingRight="@dimen/pad_goals_text_amount"
+                            android:singleLine="true"
+                            android:text="replace_with_stored_value"
+                            android:textColor="@color/text_primary" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/targetDailyCalories"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+                        android:background="@drawable/layout_bg"
+                        tools:showIn="@layout/fragment_goals">
+
+                        <TextView
+                            android:id="@+id/dailyCaloriesTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/goalspage_view_height"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|start"
+                            android:paddingLeft="@dimen/pad_goals_text_amount"
+                            android:text="@string/tell_target_daily_calories"
+                            android:textColor="@color/text_primary" />
+
+
+                        <TextView
+                            android:id="@+id/calcDailyCalories"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|end"
+                            android:paddingRight="@dimen/pad_goals_text_amount"
+                            android:singleLine="true"
+                            android:text="replace_with_stored_value"
+                            android:textColor="@color/text_primary" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/proposedMacros"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+                        android:background="@drawable/layout_bg"
+                        tools:showIn="@layout/fragment_goals">
+
+                        <TextView
+                            android:id="@+id/proposedMacrosTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/goalspage_view_height"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|start"
+                            android:paddingLeft="@dimen/pad_goals_text_amount"
+                            android:text="@string/tell_target_macros"
+                            android:textColor="@color/text_primary" />
+
+
+                        <TextView
+                            android:id="@+id/calcProposedMacros"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|end"
+                            android:paddingRight="@dimen/pad_goals_text_amount"
+                            android:singleLine="true"
+                            android:text="replace_with_stored_value"
+                            android:textColor="@color/text_primary" />
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/tellEndBFLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+                        android:background="@drawable/layout_bg"
+                        tools:showIn="@layout/fragment_goals">
+
+                        <TextView
+                            android:id="@+id/tellEndBFTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/goalspage_view_height"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|start"
+                            android:paddingLeft="@dimen/pad_goals_text_amount"
+                            android:text="USe this to display the weight at the end goal if % is used in calc"
+                            android:textAllCaps="false"
+                            android:textColor="@color/text_primary"
+                            android:typeface="normal" />
+
+
+                        <TextView
+                            android:id="@+id/tellEndBFValue"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/background"
+                            android:fontFamily="@font/roboto"
+                            android:gravity="center|end"
+                            android:paddingRight="@dimen/pad_goals_text_amount"
+                            android:singleLine="true"
+                            android:textColor="@color/text_primary" />
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>

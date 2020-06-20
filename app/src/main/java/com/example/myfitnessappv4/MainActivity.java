@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.myfitnessappv4.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,30 +22,36 @@ import java.util.Date;
 import java.util.Locale;
 
 
+
 public class MainActivity extends AppCompatActivity {
+
+    public  static  enum ActivityLevel {
+        SEDENTARY, LIGHTLY_ACTIVE, MODERATELY_ACTIVE, VERY_ACTIVE, EXTRA_ACTIVE;
+    };
+
+
     //TODO make mpreferences public or restricted to all classes in this scope
 
-    private SharedPreferences mPreferences;
+    public static SharedPreferences mPreferences;
     private String sharedPrefFile = "com.example.myfitnessappv4.sharedprefsfile";
 
-//    @Override
-//    protected void onPause(){
-//        super.onPause();
-//
-//         ...
-//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
 
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
         SharedPreferences.Editor preferencesEditor = mPreferences.edit();
 
-        //TODO remove this as we don't want to set it to 180 mandatorily
+        //TODO uninitialise these variables
+        //TODO 1) consider how to go about height measurements in shared preferences. Maybe 1 CURRENT_HEIGHT_CM, CURRENT_HEIGHT_FEET, CURRENT_HEIGHT_INCHES
         preferencesEditor.putInt("CURRENT_WEIGHT_KEY", 180);
         preferencesEditor.putString("CURRENT_WEIGHT_UNIT", "lbs");
         preferencesEditor.putInt("CURRENT_BODYFAT",12);
         preferencesEditor.putInt("USER_GOAL_VAL",10);
+        preferencesEditor.putString("ACTIVITY_LEVEL", ActivityLevel.SEDENTARY.toString());
 
 
         preferencesEditor.putLong("START_DATE",  new Date(System.currentTimeMillis()).getTime());
@@ -87,6 +94,15 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
-//TODO make a decision on whether or not a user can enter weight and bf in the goals tab.
-//Separate all instances of Bodyfat to Body Fat
-//TODO limit entered bodyfat% to between 1-100
+//TODO create bodyfat calculator popup and link to both front end and the planner
+//TODO make a decision on whether or not a user can enter weight and bf in the goals tab - Yes, the user sets the start and end goals here and that updates the system dynamically.
+//TODO Option to save a journey to look back on at a later date. I.e. it provides details on start and end date, and shows the journey of fat loss and calories, amount lost, macros etc.
+//TODO ability to enter daily calories and it shows the start and end pictures as well as
+//TODO All text to come from strings.xml
+//TODO Separate all instances of Bodyfat to Body Fat - This includes the switch
+//TODO limit entered bodyfat% to between 1-100. Disallow decimals on entering BF and weight
+//TODO a setting to set the frequency at which to set reminders to make progress update and this triggers a notification at that frequency
+//TODO In stats have a chart showing weight over time and BF% over time. Have the user able to vary the scope of this
+//TODO Dynamic calorie adjustment if accurate calories can be input. If not on track, prompt the user to estimate how many calories over they have gone and using this value, advise of a new maintenance calories (add the additional value in the goals tab EG Maintenance calories: 1200 (+1250).
+//      Essentially if the user isnn't on track, find out if they've been cheated and whether they have or haven't factor this in to a re-calculation of calories.
+//TODO Birthday to automatically update age
