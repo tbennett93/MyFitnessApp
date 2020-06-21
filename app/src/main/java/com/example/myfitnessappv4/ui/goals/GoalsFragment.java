@@ -96,6 +96,13 @@ public class GoalsFragment extends Fragment {
 
     private java.text.DateFormat dateFormat;
 
+    //Daily Deficit
+    private TextView calcCalDeficit;
+
+    //Daily Calories
+    private TextView calcDailyCalories;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -494,10 +501,11 @@ public class GoalsFragment extends Fragment {
 
 
         //**********************************************************************************
-        //Target Value and popup
+        //Goal Value and popup
         //**********************************************************************************
 
         enterTargetAmount = (TextView) root.findViewById(R.id.enterTargetAmount);
+
         enterTargetAmount.setText(String.valueOf( mPreferences.getInt("GOAL_BODYFAT",0)) +  ((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  ));
 
 
@@ -514,8 +522,20 @@ public class GoalsFragment extends Fragment {
                 popupAskGoalType.setText((targetTypeSelector.isChecked() ) ? getResources().getString(R.string.ask_popup_goal_weight) :  getResources().getString(R.string.ask_popup_goal_bf)  );
 
                 //set weight text in popup
-                popupEnterGoalValue = (EditText) popupViewGoals.findViewById(R.id.popupEnterGoalValue);
-                popupEnterGoalValue.setText(String.valueOf( mPreferences.getInt("GOAL_BODYFAT",0)) );
+
+                popupEnterGoalValue = (EditText) popupViewGoals.findViewById(R.id.popupEnterGoalValue)  ;
+
+                if ( enterTargetAmount.getText().toString().matches("lbs") || enterTargetAmount.getText().toString().matches("kg") || enterTargetAmount.getText().toString().matches("%") ){
+                    popupEnterGoalValue.setText("");
+                } else {
+
+                    if (targetTypeSelector.isChecked()){
+                        popupEnterGoalValue.setText(String.valueOf( mPreferences.getInt("GOAL_BODYWEIGHT",0)) );
+                    }else {
+                        popupEnterGoalValue.setText(String.valueOf(mPreferences.getInt("GOAL_BODYFAT", 0)));
+                    }
+                };
+
 
                 popupGoalValueUnit = (TextView) popupViewGoals.findViewById(R.id.popupGoalValueUnit);
                 popupGoalValueUnit.setText((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  );
@@ -565,13 +585,27 @@ public class GoalsFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
 
+
+
                         if(popupEnterGoalValue.getText().toString().matches("")){
 
                         }else
                         {
-                            preferencesEditor.putInt("GOAL_BODYFAT", Integer.parseInt(popupEnterGoalValue.getText().toString()));
+
+                            if (targetTypeSelector.isChecked()){
+
+                                preferencesEditor.putInt("GOAL_BODYWEIGHT", Integer.parseInt(popupEnterGoalValue.getText().toString()));
+                                preferencesEditor.apply();
+                                enterTargetAmount.setText(String.valueOf( mPreferences.getInt("GOAL_BODYWEIGHT",0)) +  ((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  ));
+
+                            }else {
+
+                                preferencesEditor.putInt("GOAL_BODYFAT", Integer.parseInt(popupEnterGoalValue.getText().toString()));
+                                preferencesEditor.apply();
+                                enterTargetAmount.setText(String.valueOf( mPreferences.getInt("GOAL_BODYFAT",0)) +  ((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  ));
+                            }
+
                             preferencesEditor.apply();
-                            enterTargetAmount.setText(String.valueOf( mPreferences.getInt("GOAL_BODYFAT",0)) +  ((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  ));
 
 
                             popupWindowGoals.dismiss();
@@ -592,6 +626,11 @@ public class GoalsFragment extends Fragment {
         //**********************************************************************************
 
 
+
+
+
+
+
         //**********************************************************************************
         //Calculate Button
         //**********************************************************************************
@@ -601,6 +640,8 @@ public class GoalsFragment extends Fragment {
         calculateButton = (Button) root.findViewById(R.id.calculateButton);
 
         userMaintenanceCalories = (TextView) root.findViewById(R.id.userMaintenanceCalories);
+        calcCalDeficit = (TextView) root.findViewById(R.id.calcCalDeficit);
+        calcDailyCalories = (TextView) root.findViewById(R.id.calcDailyCalories);
 
         calculateButton.setOnClickListener(new View.OnClickListener(){
 
@@ -608,10 +649,16 @@ public class GoalsFragment extends Fragment {
             public void onClick(View v) {
                 //Update SharedPreferences
                 preferencesEditor.putInt("MAINTENANCE_CALORIES", UserReference.calculateMaintenanceCalories());
+                preferencesEditor.putInt("TARGET_DAILY_DEFICIT", UserReference.calculateTargetCalorieDeficit(targetTypeSelector.isChecked()));
+                preferencesEditor.putInt("TARGET_DAILY_CALORIES", UserReference.calculateMaintenanceCalories() - UserReference.calculateTargetCalorieDeficit(targetTypeSelector.isChecked()));
+
+
                 preferencesEditor.apply();
 
                 //Refresh Fields
                 userMaintenanceCalories.setText(mPreferences.getInt("MAINTENANCE_CALORIES",0) + "kcal");
+                calcCalDeficit.setText(mPreferences.getInt("TARGET_DAILY_DEFICIT",0) + "kcal");
+                calcDailyCalories.setText(mPreferences.getInt("TARGET_DAILY_CALORIES",0) + "kcal");
             }
         });
         //**********************************************************************************
@@ -693,14 +740,11 @@ public class GoalsFragment extends Fragment {
                 buttonOkayEnterCals.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        Log.d("DEBUG1", String.valueOf(Integer.parseInt(popupEnterCals.toString())));
+
                         if(popupEnterCals.getText().toString().matches("")){
-                            Log.d("DEBUG2", popupEnterCals.getText().toString());
 
                         }else
                         {
-                            Log.d("DEBUG3",popupEnterCals.getText().toString());
-
                             preferencesEditor.putInt("MAINTENANCE_CALORIES", Integer.parseInt(popupEnterCals.getText().toString()));
                             preferencesEditor.apply();
                             userMaintenanceCalories.setText(mPreferences.getInt("MAINTENANCE_CALORIES",0) + "kcal");
@@ -752,7 +796,6 @@ public class GoalsFragment extends Fragment {
 
 
 
-//        Log.d("MYTAG",myString)
 
 
     }

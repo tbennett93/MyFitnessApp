@@ -4,7 +4,10 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.myfitnessappv4.MainActivity;
+import com.example.myfitnessappv4.R;
 import com.example.myfitnessappv4.ui.goals.GoalsFragment;
+
+import java.util.Date;
 
 public class UserReference {
 
@@ -110,17 +113,14 @@ public class UserReference {
 
         ;
 
-        Log.d("Debug_weight1", String.valueOf(weightKG));
 
         if (heightUnit == "imperial"){
             heightCM = convertToCM(heightFeet, heightInches);
         }
 
-        Log.d("Debug_height1", String.valueOf(heightCM));
 
         BMR = (10 * weightKG) + (6.25 * heightCM) - (5 * age) + sexVal;
 
-        Log.d("Debug_BMR3", String.valueOf(BMR));
 
         return BMR;
      }
@@ -130,6 +130,49 @@ public class UserReference {
         return (int) (calculateBMR() * getActivityValue());
     }
 
+
+    public static int calculateTargetCalorieDeficit(boolean useBodyWeight){
+
+        long startDate =  mPreferences.getLong("START_DATE", 0);
+        long endDate = mPreferences.getLong("END_DATE", 0);
+        long longPeriod = endDate - startDate;
+        double daysPeriod = longPeriod / 86400000;
+
+        double currentWeight = mPreferences.getInt("CURRENT_WEIGHT",0);
+        double goalBodyWeight = mPreferences.getInt("GOAL_BODYWEIGHT",0);;
+        double amountToLose;
+        double amountToLosePerDay;
+        double calsPerWeightUnit;
+        int    dailyCalorieDeficit;
+
+        //Calc the goalbodyweight if using BF% as input
+        if (!useBodyWeight){
+            //Calculate deficit on target body weight
+            double leanBodyMass;
+            double currentBF = mPreferences.getInt("CURRENT_BODYFAT", 0);
+            double goalBF= mPreferences.getInt("GOAL_BODYFAT", 0);;
+
+            leanBodyMass = currentWeight - (currentWeight * (currentBF / 100));
+            //The below formula works out what weight the user will be when their bodyfat is at the target (dont just use LBM * goalBF as this is simply adding 10% to their weight and is not accurate)
+            goalBodyWeight = leanBodyMass/(1-(goalBF/100));
+
+
+        }
+
+        Log.d("DEBUG - currentweight",String.valueOf(currentWeight));
+        Log.d("DEBUG - goalbodyweight",String.valueOf(goalBodyWeight));
+        amountToLose = currentWeight - goalBodyWeight;
+        Log.d("DEBUG - amounttolose",String.valueOf(amountToLose));
+        Log.d("DEBUG - weight unit",mPreferences.getString("CURRENT_WEIGHT_UNIT",""));
+        amountToLosePerDay = amountToLose / daysPeriod;
+        Log.d("DEBUG DAYS", String.valueOf(daysPeriod));
+        Log.d("DEBUG amountToLosePerDa", String.valueOf(amountToLosePerDay));
+        calsPerWeightUnit = (String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")).matches("lbs") ) ? 3500 :  7700 ;
+
+        dailyCalorieDeficit = (int) (calsPerWeightUnit * amountToLosePerDay);
+        Log.d("DEBUG - deficit",String.valueOf(dailyCalorieDeficit));
+        return dailyCalorieDeficit;
+    }
 
 }
 

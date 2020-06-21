@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.example.myfitnessappv4.R;
+import com.example.myfitnessappv4.ui.UserReference;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         preferencesEditor.putString("CURRENT_WEIGHT_UNIT", "lbs");
         preferencesEditor.putInt("CURRENT_BODYFAT",12);
         preferencesEditor.putInt("GOAL_BODYFAT",10);
+//        preferencesEditor.putInt("GOAL_BODYWEIGHT",170);
         preferencesEditor.putString("USER_SEX","male");
         preferencesEditor.putInt("USER_AGE",26);
         preferencesEditor.putString("USER_ACTIVITY_LEVEL", ActivityLevel.SEDENTARY.toString());
@@ -69,10 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         preferencesEditor.putLong("START_DATE",  new Date(System.currentTimeMillis()).getTime());
-        preferencesEditor.putLong("END_DATE", new Date(System.currentTimeMillis()).getTime()+(5184001*60));
+        preferencesEditor.putLong("END_DATE", new Date(System.currentTimeMillis()).getTime()+(86400000 *7));
 //        preferencesEditor.putString("START_DATE%",);
         preferencesEditor.apply();
-
 
         //setting the content view is enough to display the fragments and navigation bar
         // this is because activity_main's large screen portion points to a navgraph of mobile_navigation.xml which has objects for each fragment and allows each one to be assigned to a screen
