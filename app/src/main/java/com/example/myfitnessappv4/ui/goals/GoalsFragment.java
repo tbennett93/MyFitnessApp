@@ -28,6 +28,8 @@ import com.example.myfitnessappv4.MainActivity;
 import com.example.myfitnessappv4.R;
 import com.example.myfitnessappv4.ui.UserReference;
 
+import org.w3c.dom.Text;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -632,6 +634,8 @@ public class GoalsFragment extends Fragment {
 
         //TODO think about whether the maintenance calories should be editable. Might be best to leave this until last.
         //  if implementing this. Have a warning popup box first saying 'are you sure you want to overwrite'
+        userMaintenanceCalories = (TextView) root.findViewById(R.id.userMaintenanceCalories);
+        userMaintenanceCalories.setText(String.valueOf(mPreferences.getInt("MAINTENANCE_CALORIES",0)) + "kcal");
         clickableMaintenanceCalories = (LinearLayout) root.findViewById(R.id.maintenanceCalories);
         clickableMaintenanceCalories.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -642,7 +646,7 @@ public class GoalsFragment extends Fragment {
 
                 //set weight text in popup
                 popupEnterCals = (EditText) popupViewMaintenanceCals.findViewById(R.id.popupEnterMaintenanceCalories);
-                popupEnterCals.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT",0)) );
+                popupEnterCals.setText(String.valueOf( mPreferences.getInt("MAINTENANCE_CALORIES",0)) );
                 popupAskMaintenanceCalories = (TextView) popupViewMaintenanceCals.findViewById((R.id.popupAskMaintenanceCalories));
                 popupAskMaintenanceCalories.setText(R.string.ask_maintenance_cals);
 
