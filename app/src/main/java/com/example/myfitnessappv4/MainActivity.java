@@ -50,12 +50,13 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO uninitialise these variables
         //TODO 1) consider how to go about height measurements in shared preferences. Maybe 1 CURRENT_HEIGHT_CM, CURRENT_HEIGHT_FEET, CURRENT_HEIGHT_INCHES
-        preferencesEditor.putInt("CURRENT_WEIGHT_KEY", 180);
+        preferencesEditor.putInt("CURRENT_WEIGHT", 180);
         preferencesEditor.putString("CURRENT_WEIGHT_UNIT", "lbs");
         preferencesEditor.putInt("CURRENT_BODYFAT",12);
-        preferencesEditor.putInt("USER_GOAL_VAL",10);
-        preferencesEditor.putString("USER_SEX","MALE");
-        preferencesEditor.putString("ACTIVITY_LEVEL", ActivityLevel.SEDENTARY.toString());
+        preferencesEditor.putInt("GOAL_BODYFAT",10);
+        preferencesEditor.putString("USER_SEX","male");
+        preferencesEditor.putInt("USER_AGE",26);
+        preferencesEditor.putString("USER_ACTIVITY_LEVEL", ActivityLevel.SEDENTARY.toString());
 
 
         preferencesEditor.putInt("USER_HEIGHT_CM",180);

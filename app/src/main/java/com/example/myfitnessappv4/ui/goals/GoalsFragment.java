@@ -52,9 +52,11 @@ public class GoalsFragment extends Fragment {
     private PopupWindow popupWindowWeight;
 
     //Current BF
-    private EditText popupEnterBodyfat;
-    private TextView userCurrentBodyfat;
-    private LinearLayout clickableCurrentBodyfat;
+    private EditText popupEnterBF;
+    private TextView userBF;
+    private LinearLayout clickableBF;
+    private PopupWindow popupWindowBF;
+    private TextView popupAskBF;
 
     //Target
     private TextView popupEnterGoalValue;
@@ -121,7 +123,7 @@ public class GoalsFragment extends Fragment {
         userCurrentWeight = (TextView) root.findViewById(R.id.enterCurrentWeight);
 
         //set weight text to that held in the preferences
-        userCurrentWeight.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT_KEY",0)) +  mPreferences.getString("CURRENT_WEIGHT_UNIT",""));
+        userCurrentWeight.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT",0)) +  mPreferences.getString("CURRENT_WEIGHT_UNIT",""));
 
 
         //Set the currentweight row to be clickable and when clicked opens a window to enter an input
@@ -135,7 +137,7 @@ public class GoalsFragment extends Fragment {
 
                 //set weight text in popup
                 popupEnterWeight = (EditText) popupViewWeight.findViewById(R.id.popupEnterWeight);
-                popupEnterWeight.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT_KEY",0)) );
+                popupEnterWeight.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT",0)) );
 
                 //set weight unit
                 popupUnit = (TextView) popupViewWeight.findViewById(R.id.popup_unit);
@@ -188,9 +190,9 @@ public class GoalsFragment extends Fragment {
 
                         }else
                         {
-                            preferencesEditor.putInt("CURRENT_WEIGHT_KEY", Integer.parseInt(popupEnterWeight.getText().toString()));
+                            preferencesEditor.putInt("CURRENT_WEIGHT", Integer.parseInt(popupEnterWeight.getText().toString()));
                             preferencesEditor.apply();
-                            userCurrentWeight.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT_KEY",0)) +  mPreferences.getString("CURRENT_WEIGHT_UNIT",""));
+                            userCurrentWeight.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT",0)) +  mPreferences.getString("CURRENT_WEIGHT_UNIT",""));
                             popupWindowWeight.dismiss();
                         }
 
@@ -209,6 +211,125 @@ public class GoalsFragment extends Fragment {
 
         //**********************************************************************************
         //**********************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+        //**********************************************************************************
+        //Current Body Fat
+        //**********************************************************************************
+
+//        private EditText popupEnterBF;
+//        private TextView userBF;
+//        private LinearLayout clickableBF;
+//        private PopupWindow popupWindowBF;
+//        private TextView popupAskBF;z
+
+        //Current weight View with functionality
+        //When the row is clicked, a popup view will appear prompting the user to enter their weight.
+        //When entered, this closes the popup, updates the saved data and forces a refresh in the main layout
+        userBF = (TextView) root.findViewById(R.id.enterCurrentBodyfat);
+
+        //set weight text to that held in the preferences
+        userBF.setText(String.valueOf( mPreferences.getInt("CURRENT_BODYFAT",0)) + "%" );
+
+
+        //Set the currentweight row to be clickable and when clicked opens a window to enter an input
+        clickableBF = (LinearLayout) root.findViewById(R.id.currentBFLayout);
+        clickableBF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                View popupViewBF = LayoutInflater.from(getActivity()).inflate(R.layout.popup_enter_bodyfat, null);
+                popupWindowBF = new PopupWindow(popupViewBF, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+
+                //set weight text in popup
+                popupEnterBF = (EditText) popupViewBF.findViewById(R.id.popupEnterBF);
+                popupEnterBF.setText(String.valueOf( mPreferences.getInt("CURRENT_BODYFAT",0)) );
+
+                //open popup
+                popupWindowBF.setAnimationStyle(R.style.Animation_Design_BottomSheetDialog);
+                popupWindowBF.showAtLocation(popupViewBF, Gravity.CENTER, 0, 0);
+                dimBehind(popupWindowBF);
+
+                //Clear text from enter text field if clicked
+                popupEnterBF.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+
+                        popupEnterBF.setText("");
+
+
+                        popupEnterBF.setOnKeyListener(new View.OnKeyListener() {
+                            @Override
+                            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+
+
+                                    InputMethodManager manager = (InputMethodManager) getContext()
+                                            .getSystemService(INPUT_METHOD_SERVICE);
+                                    if (manager != null)
+                                        manager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                                    return true; //this is required to stop sending key event to parent
+
+
+                                }
+                                return false;
+                            }
+                        });
+
+
+                    }
+                });
+
+                //okay button to finalise info and close
+                Button buttonOkayEnterWeight = (Button) popupViewBF.findViewById(R.id.buttonOkayEnterBF);
+
+                buttonOkayEnterWeight.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        if(popupEnterBF.getText().toString().matches("")){
+
+                        }else
+                        {
+                            preferencesEditor.putInt("CURRENT_BODYFAT", Integer.parseInt(popupEnterBF.getText().toString()));
+                            preferencesEditor.apply();
+                            userBF.setText(String.valueOf( mPreferences.getInt("CURRENT_BODYFAT",0)) + "%" );
+                            popupWindowBF.dismiss();
+                        }
+
+
+                    }
+                });
+
+            }
+
+
+        });
+
+
+
+
+
+        //**********************************************************************************
+        //**********************************************************************************
+
+
+
+
+
+
+
+
 
 
 
@@ -375,7 +496,7 @@ public class GoalsFragment extends Fragment {
         //**********************************************************************************
 
         enterTargetAmount = (TextView) root.findViewById(R.id.enterTargetAmount);
-        enterTargetAmount.setText(String.valueOf( mPreferences.getInt("USER_GOAL_VAL",0)) +  ((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  ));
+        enterTargetAmount.setText(String.valueOf( mPreferences.getInt("GOAL_BODYFAT",0)) +  ((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  ));
 
 
         //Set the currentweight row to be clickable and when clicked opens a window to enter an input
@@ -392,7 +513,7 @@ public class GoalsFragment extends Fragment {
 
                 //set weight text in popup
                 popupEnterGoalValue = (EditText) popupViewGoals.findViewById(R.id.popupEnterGoalValue);
-                popupEnterGoalValue.setText(String.valueOf( mPreferences.getInt("USER_GOAL_VAL",0)) );
+                popupEnterGoalValue.setText(String.valueOf( mPreferences.getInt("GOAL_BODYFAT",0)) );
 
                 popupGoalValueUnit = (TextView) popupViewGoals.findViewById(R.id.popupGoalValueUnit);
                 popupGoalValueUnit.setText((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  );
@@ -446,9 +567,9 @@ public class GoalsFragment extends Fragment {
 
                         }else
                         {
-                            preferencesEditor.putInt("USER_GOAL_VAL", Integer.parseInt(popupEnterGoalValue.getText().toString()));
+                            preferencesEditor.putInt("GOAL_BODYFAT", Integer.parseInt(popupEnterGoalValue.getText().toString()));
                             preferencesEditor.apply();
-                            enterTargetAmount.setText(String.valueOf( mPreferences.getInt("USER_GOAL_VAL",0)) +  ((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  ));
+                            enterTargetAmount.setText(String.valueOf( mPreferences.getInt("GOAL_BODYFAT",0)) +  ((targetTypeSelector.isChecked() ) ? String.valueOf( mPreferences.getString("CURRENT_WEIGHT_UNIT","")) :  getResources().getString(R.string.unit_type_percentage)  ));
 
 
                             popupWindowGoals.dismiss();
@@ -521,7 +642,7 @@ public class GoalsFragment extends Fragment {
 
                 //set weight text in popup
                 popupEnterCals = (EditText) popupViewMaintenanceCals.findViewById(R.id.popupEnterMaintenanceCalories);
-                popupEnterCals.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT_KEY",0)) );
+                popupEnterCals.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT",0)) );
                 popupAskMaintenanceCalories = (TextView) popupViewMaintenanceCals.findViewById((R.id.popupAskMaintenanceCalories));
                 popupAskMaintenanceCalories.setText(R.string.ask_maintenance_cals);
 

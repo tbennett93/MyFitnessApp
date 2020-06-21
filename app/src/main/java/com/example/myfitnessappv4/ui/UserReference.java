@@ -1,6 +1,7 @@
 package com.example.myfitnessappv4.ui;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.myfitnessappv4.MainActivity;
 import com.example.myfitnessappv4.ui.goals.GoalsFragment;
@@ -18,17 +19,16 @@ public class UserReference {
     static int heightCM = mPreferences.getInt("USER_HEIGHT_CM" ,0);
     static int heightFeet = mPreferences.getInt("USER_HEIGHT_FEET" ,0);
     static int heightInches = mPreferences.getInt("USER_HEIGHT_INCHES" ,0);
-    static String heightUnit = mPreferences.getString("CURRENT_HEIGHT_UNIT","ERROR_FETCHING_VAL");
+    static String heightUnit = mPreferences.getString("USER_HEIGHT_UNIT","ERROR_FETCHING_VAL");
 
     static String weightUnit = mPreferences.getString("CURRENT_WEIGHT_UNIT","ERROR_FETCHING_VAL");
-    static double weight = mPreferences.getInt("CURRENT_WEIGHT_KEY",0);
+    static double weight = mPreferences.getInt("CURRENT_WEIGHT",0);
 
-    //TODO set up a height unit shared preferences - IMPERIAL & METRIC
-    static double activityValue;
 
     //goals stats
-    int currentWeight = mPreferences.getInt("CURRENT_WEIGHT_KEY" ,0);
-    double bodyFatPercentage = mPreferences.getInt("CURRENT_BODYFAT" ,0); ;;
+    double bodyFatPercentage = mPreferences.getInt("CURRENT_BODYFAT" ,0);
+
+
 
     public static int convertToCM(int feet, int inches){
         int cm = (int) ((30.48 * feet) + (2.54 * inches));
@@ -47,23 +47,26 @@ public class UserReference {
         return lbs;
     }
 
-    private double getActivityValue(){
+    private static double getActivityValue(){
+        double activityValue;
         switch ( mPreferences.getString("USER_ACTIVITY_LEVEL" ,"ERROR_FETCHING_VAL")){
             case "SEDENTARY":
-                this.activityValue = 1.2;
+                activityValue = 1.2;
                 break;
             case "LIGHTLY_ACTIVE":
-                this.activityValue = 1.375;
+                activityValue = 1.375;
                 break;
             case "MODERATELY_ACTIVE":
-                this.activityValue = 1.55;
+                activityValue = 1.55;
                 break;
             case "VERY_ACTIVE":
-                this.activityValue = 1.725;
+                activityValue = 1.725;
                 break;
             case "EXTRA_ACTIVE":
-                this.activityValue = 1.9;
+                activityValue = 1.9;
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + mPreferences.getString("USER_ACTIVITY_LEVEL", "ERROR_FETCHING_VAL"));
         };
 
         return activityValue;
@@ -91,29 +94,40 @@ public class UserReference {
 
         double BMR;
         int sexVal = 9999;
+        double weightKG  = mPreferences.getInt("CURRENT_WEIGHT",0);
 
-        if (sex == "Male"){
+
+        if (sex.matches("male")){
             sexVal = 5;
-        } else if (sex == "Female"){
+        } else if (sex.matches("female")){
             sexVal = -161;
+        };
+
+        if (weightUnit.matches("lbs")){
+            weightKG = convertToKG(mPreferences.getInt("CURRENT_WEIGHT",0));
+
         }
 
-        if (weightUnit == "lbs"){
-            weight = convertToKG(weight);
-        };
+        ;
+
+        Log.d("Debug_weight1", String.valueOf(weightKG));
 
         if (heightUnit == "imperial"){
             heightCM = convertToCM(heightFeet, heightInches);
         }
 
-        BMR = (10 * weight) + (6.25 * heightCM) - (5 * age) + sexVal;
+        Log.d("Debug_height1", String.valueOf(heightCM));
+
+        BMR = (10 * weightKG) + (6.25 * heightCM) - (5 * age) + sexVal;
+
+        Log.d("Debug_BMR3", String.valueOf(BMR));
 
         return BMR;
      }
 
 
     public static int calculateMaintenanceCalories(){
-        return (int) (calculateBMR() * activityValue);
+        return (int) (calculateBMR() * getActivityValue());
     }
 
 
