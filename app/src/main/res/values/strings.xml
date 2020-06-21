@@ -19,6 +19,7 @@
     <string name="unit_type_percentage">%</string>
     <string name="ask_popup_goal_weight">Enter Goal Weight:</string>
     <string name="ask_popup_goal_bf">Enter Goal Body Fat %:</string>
+    <string name="ask_maintenance_cals">Enter Maintenance Calories:</string>
 
     //Results
     <string name="tell_results">Results</string>

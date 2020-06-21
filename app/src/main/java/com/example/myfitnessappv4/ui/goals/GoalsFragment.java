@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myfitnessappv4.MainActivity;
 import com.example.myfitnessappv4.R;
+import com.example.myfitnessappv4.ui.UserReference;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -76,6 +78,17 @@ public class GoalsFragment extends Fragment {
     private EditText displayFinalDateField;
     private LinearLayout clickableEndDate;
     private Calendar myCalendarEnd;
+
+
+    //Maintenance Calories
+    private EditText popupEnterCals;
+    private TextView userMaintenanceCalories;
+    private LinearLayout clickableMaintenanceCalories;
+    private PopupWindow popupWindowMaintenanceCalories;
+    private TextView popupAskMaintenanceCalories;
+
+    //Calculate Button
+    private Button calculateButton;
 
     private java.text.DateFormat dateFormat;
 
@@ -454,6 +467,139 @@ public class GoalsFragment extends Fragment {
 
         //**********************************************************************************
         //**********************************************************************************
+
+
+        //**********************************************************************************
+        //Calculate Button
+        //**********************************************************************************
+        //TODO set an onclickable that updates the SharedPreferencnes of all values required below and refreshes the values shown
+        //putint the calculate method from an instance of UserReference.
+
+        calculateButton = (Button) root.findViewById(R.id.calculateButton);
+
+        userMaintenanceCalories = (TextView) root.findViewById(R.id.userMaintenanceCalories);
+
+        calculateButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                //Update SharedPreferences
+                preferencesEditor.putInt("MAINTENANCE_CALORIES", UserReference.calculateMaintenanceCalories());
+                preferencesEditor.apply();
+
+                //Refresh Fields
+                userMaintenanceCalories.setText(mPreferences.getInt("MAINTENANCE_CALORIES",0) + "kcal");
+            }
+        });
+        //**********************************************************************************
+        //**********************************************************************************
+
+
+
+
+
+
+        //**********************************************************************************
+        //Maintenance Calories
+        //**********************************************************************************
+
+//        private EditText popupEnterCals;
+//        private TextView userMaintenanceCalories;
+//        private LinearLayout clickableMaintenanceCalories;
+//        private PopupWindow popupWindowMaintenanceCalories;
+
+
+        //TODO think about whether the maintenance calories should be editable. Might be best to leave this until last.
+        //  if implementing this. Have a warning popup box first saying 'are you sure you want to overwrite'
+        clickableMaintenanceCalories = (LinearLayout) root.findViewById(R.id.maintenanceCalories);
+        clickableMaintenanceCalories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                View popupViewMaintenanceCals = LayoutInflater.from(getActivity()).inflate(R.layout.popup_maintenance_calories, null);
+                popupWindowMaintenanceCalories = new PopupWindow(popupViewMaintenanceCals, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+
+                //set weight text in popup
+                popupEnterCals = (EditText) popupViewMaintenanceCals.findViewById(R.id.popupEnterMaintenanceCalories);
+                popupEnterCals.setText(String.valueOf( mPreferences.getInt("CURRENT_WEIGHT_KEY",0)) );
+                popupAskMaintenanceCalories = (TextView) popupViewMaintenanceCals.findViewById((R.id.popupAskMaintenanceCalories));
+                popupAskMaintenanceCalories.setText(R.string.ask_maintenance_cals);
+
+
+                //open popup
+                popupWindowMaintenanceCalories.setAnimationStyle(R.style.Animation_Design_BottomSheetDialog);
+                popupWindowMaintenanceCalories.showAtLocation(popupViewMaintenanceCals, Gravity.CENTER, 0, 0);
+                dimBehind(popupWindowMaintenanceCalories);
+
+                //Clear text from enter text field if clicked
+                popupEnterCals.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+
+                        popupEnterCals.setText("");
+
+
+                        popupEnterCals.setOnKeyListener(new View.OnKeyListener() {
+                            @Override
+                            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+
+
+                                    InputMethodManager manager = (InputMethodManager) getContext()
+                                            .getSystemService(INPUT_METHOD_SERVICE);
+                                    if (manager != null)
+                                        manager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+
+                                    return true; //this is required to stop sending key event to parent
+
+
+                                }
+                                return false;
+                            }
+                        });
+
+
+                    }
+                });
+
+                //okay button to finalise info and close
+                Button buttonOkayEnterCals = (Button) popupViewMaintenanceCals.findViewById(R.id.buttonOkayEnterCals);
+
+                buttonOkayEnterCals.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        Log.d("DEBUG1", String.valueOf(Integer.parseInt(popupEnterCals.toString())));
+                        if(popupEnterCals.getText().toString().matches("")){
+                            Log.d("DEBUG2", popupEnterCals.getText().toString());
+
+                        }else
+                        {
+                            Log.d("DEBUG3",popupEnterCals.getText().toString());
+
+                            preferencesEditor.putInt("MAINTENANCE_CALORIES", Integer.parseInt(popupEnterCals.getText().toString()));
+                            preferencesEditor.apply();
+                            userMaintenanceCalories.setText(mPreferences.getInt("MAINTENANCE_CALORIES",0) + "kcal");
+                            popupWindowMaintenanceCalories.dismiss();
+
+
+                        }
+
+
+                    }
+                });
+
+            }
+
+
+        });
+
+
+
+
+
+        //**********************************************************************************
+        //**********************************************************************************
+
 
 
 

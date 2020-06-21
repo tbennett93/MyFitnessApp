@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         SEDENTARY, LIGHTLY_ACTIVE, MODERATELY_ACTIVE, VERY_ACTIVE, EXTRA_ACTIVE;
     };
 
+    public  static  enum HeightUnit {
+        imperial, metric;
+    };
 
     //TODO make mpreferences public or restricted to all classes in this scope
 
@@ -51,7 +54,17 @@ public class MainActivity extends AppCompatActivity {
         preferencesEditor.putString("CURRENT_WEIGHT_UNIT", "lbs");
         preferencesEditor.putInt("CURRENT_BODYFAT",12);
         preferencesEditor.putInt("USER_GOAL_VAL",10);
+        preferencesEditor.putString("USER_SEX","MALE");
         preferencesEditor.putString("ACTIVITY_LEVEL", ActivityLevel.SEDENTARY.toString());
+
+
+        preferencesEditor.putInt("USER_HEIGHT_CM",180);
+
+        preferencesEditor.putInt("USER_HEIGHT_FEET",6);
+        preferencesEditor.putInt("USER_HEIGHT_INCHES",0);
+
+        preferencesEditor.putString("USER_HEIGHT_UNIT",HeightUnit.metric.toString());
+
 
 
         preferencesEditor.putLong("START_DATE",  new Date(System.currentTimeMillis()).getTime());

@@ -9,46 +9,42 @@ public class UserReference {
 
     //TODO Insert variables and methods to calculate user info here
 
-    private SharedPreferences mPreferences = MainActivity.mPreferences;
+    private static SharedPreferences mPreferences = MainActivity.mPreferences;
+
     //profile stats
-    int age = mPreferences.getInt("USER_AGE" ,0);
-    String sex = mPreferences.getString("USER_SEX","ERROR_FETCHING_VAL");
-    int height = mPreferences.getInt("USER_HEIGHT" ,0);
-    String weightUnit = mPreferences.getString("CURRENT_WEIGHT_UNIT","ERROR_FETCHING_VAL");
-    String heightUnit = mPreferences.getString("CURRENT_HEIGHT_UNIT","ERROR_FETCHING_VAL");
-    double weight = mPreferences.getInt("CURRENT_WEIGHT_KEY",0);
-    //TODO set up a heighunit shared preferences - IMPERIAL & METRIC
-    String activityLevel = mPreferences.getString("USER_ACTIVITY_LEVEL" ,"ERROR_FETCHING_VAL");
-    double activityValue;
+    static int age = mPreferences.getInt("USER_AGE" ,0);
+    static String sex = mPreferences.getString("USER_SEX","ERROR_FETCHING_VAL");
+
+    static int heightCM = mPreferences.getInt("USER_HEIGHT_CM" ,0);
+    static int heightFeet = mPreferences.getInt("USER_HEIGHT_FEET" ,0);
+    static int heightInches = mPreferences.getInt("USER_HEIGHT_INCHES" ,0);
+    static String heightUnit = mPreferences.getString("CURRENT_HEIGHT_UNIT","ERROR_FETCHING_VAL");
+
+    static String weightUnit = mPreferences.getString("CURRENT_WEIGHT_UNIT","ERROR_FETCHING_VAL");
+    static double weight = mPreferences.getInt("CURRENT_WEIGHT_KEY",0);
+
+    //TODO set up a height unit shared preferences - IMPERIAL & METRIC
+    static double activityValue;
 
     //goals stats
-    int currentWeight;
-    double bodyFatPercentage;
+    int currentWeight = mPreferences.getInt("CURRENT_WEIGHT_KEY" ,0);
+    double bodyFatPercentage = mPreferences.getInt("CURRENT_BODYFAT" ,0); ;;
 
-
-    public double convertToMeter(int feet, int inches){
-        return 0;
+    public static int convertToCM(int feet, int inches){
+        int cm = (int) ((30.48 * feet) + (2.54 * inches));
         //TODO this logic
+        return cm;
     }
 
-    public String convertFromMeter(double kg){
-        //TODO this should look at SharedPreferences for its vals
-        int feet = 6;
-        int inches = 0 ;
-        String imperialHeight = feet + "' " + inches + "''";
-        return imperialHeight;
 
-    }
-    public double convertToKG(double lbs){
+    public static double convertToKG(double lbs){
         double kg = lbs / 2.20462;
         return kg;
-
     }
 
     public double convertFromKG(double kg){
         double lbs = kg * 2.20462;
         return lbs;
-
     }
 
     private double getActivityValue(){
@@ -68,21 +64,13 @@ public class UserReference {
             case "EXTRA_ACTIVE":
                 this.activityValue = 1.9;
                 break;
-
-
         };
 
         return activityValue;
     }
 
-    private int calculateBMR(){
+    private static double calculateBMR(){
 
-        if (weightUnit == "kg"){
-            //Ci
-            weight = convertFromKG(weight);
-        };
-
-        return 0;
 
         /*
         BMR
@@ -101,20 +89,33 @@ public class UserReference {
         */
 
 
+        double BMR;
+        int sexVal = 9999;
 
+        if (sex == "Male"){
+            sexVal = 5;
+        } else if (sex == "Female"){
+            sexVal = -161;
+        }
 
+        if (weightUnit == "lbs"){
+            weight = convertToKG(weight);
+        };
+
+        if (heightUnit == "imperial"){
+            heightCM = convertToCM(heightFeet, heightInches);
+        }
+
+        BMR = (10 * weight) + (6.25 * heightCM) - (5 * age) + sexVal;
+
+        return BMR;
      }
 
-    public int calculateMaintenanceCalories(double bMR){
-        return (int) (bMR * activityValue);
+
+    public static int calculateMaintenanceCalories(){
+        return (int) (calculateBMR() * activityValue);
     }
 
-
-    public void UserReference(int currentWeight, double bodyFatPercentage){
-        this.currentWeight = currentWeight;
-        this.bodyFatPercentage = bodyFatPercentage;
-        getActivityValue();
-    }
 
 }
 

@@ -2,16 +2,16 @@
 
 
     <!--wrap  the whole layout in a relative layout so then it resizes on different sized phones-->
-    <RelativeLayout android:layout_height="match_parent"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
 
 
         <!--Wrap everything in a nested scroll view to allow scrolling-->
-        <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="false">
@@ -275,6 +275,30 @@
                     </LinearLayout>
 
 
+
+                    <LinearLayout
+                        android:id="@+id/calculateButtonLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/goals_spacing_between_row_groups"
+                        android:background="@drawable/layout_bg"
+                        tools:showIn="@layout/fragment_goals">
+
+                        <Button
+                            android:id="@+id/calculateButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/goalspage_view_height"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:background="@color/background_secondary"
+                            android:fontFamily="@font/roboto"
+                            android:text="Calculate"
+                            android:textColor="@color/text_primary" />
+
+
+                    </LinearLayout>
+
+
+
                     <LinearLayout
                         android:id="@+id/results"
                         android:layout_width="match_parent"
@@ -322,7 +346,7 @@
 
 
                         <TextView
-                            android:id="@+id/calcMainCals"
+                            android:id="@+id/userMaintenanceCalories"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -331,7 +355,6 @@
                             android:gravity="center|end"
                             android:paddingRight="@dimen/pad_goals_text_amount"
                             android:singleLine="true"
-                            android:text="replace_with_stored_value"
                             android:textColor="@color/text_primary" />
                     </LinearLayout>
 
